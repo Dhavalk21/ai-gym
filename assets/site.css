@@ -556,3 +556,4 @@ footer.site > span { color: var(--ink-3); font-size: 15px; }
 a.entrance { text-decoration: none; border-color: #7FB5B0; transition: background .15s; }
 a.entrance:hover { background: rgba(255,255,255,.06); color: var(--ground); }
 a.entrance span::after { content: " →"; }
+.rr-out { margin: 0 0 14px; padding: 12px 14px; background: rgba(255,255,255,.06); border-left: 3px solid #8A939D; border-radius: 4px; white-space: pre-wrap; font: 14.5px/1.5 ui-monospace, Menlo, Consolas, monospace; color: #DDE3E8; }
