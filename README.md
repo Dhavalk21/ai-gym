@@ -48,7 +48,7 @@ Twelve stations in six zones, in the order an AI feature gets built, plus a setu
 | **Understand the machine** | [A1 How LLMs work, and choosing a model](https://dhavalk21.github.io/ai-gym/a1/), [A2 Where AI fits](https://dhavalk21.github.io/ai-gym/a2/) | Live |
 | **Talk to models** | [A3 Prompt engineering](https://dhavalk21.github.io/ai-gym/a3/), [A4 Context engineering and RAG](https://dhavalk21.github.io/ai-gym/a4/) | Live |
 | **Build** | [A5 Prototyping with AI](https://dhavalk21.github.io/ai-gym/a5/), [A6 Agents, tools and MCP](https://dhavalk21.github.io/ai-gym/a6/) | Live |
-| **Measure quality** | A7 Evals, A8 Guardrails, safety and observability | Coming soon |
+| **Measure quality** | [A7 Evals](https://dhavalk21.github.io/ai-gym/a7/), [A8 Guardrails, safety and observability](https://dhavalk21.github.io/ai-gym/a8/) | Live |
 | **Ship** | A9 AI UX and trust, A10 AI economics and pricing | Coming soon |
 | **Lead** | A11 Responsible AI and the EU AI Act, A12 The AI-native PM | Coming soon |
 | **Capstone** | Ship an AI feature end to end | Planned |
@@ -63,6 +63,8 @@ Twelve stations in six zones, in the order an AI feature gets built, plus a setu
 | A4 | [Retrieval Relay](https://dhavalk21.github.io/ai-gym/games/retrieval-relay/) | Trace eight wrong RAG answers to the step that broke |
 | A5 | [Prototype Sprint](https://dhavalk21.github.io/ai-gym/games/prototype-sprint/) | Decide what to build, fake or skip in a one-week AI prototype |
 | A6 | [Pattern Picker](https://dhavalk21.github.io/ai-gym/games/pattern-picker/) | Pick the simplest design for eight AI jobs, from a single call to an agent |
+| A7 | [Judge the Judge](https://dhavalk21.github.io/ai-gym/games/judge-the-judge/) | Grade eight AI answers yourself, then fix the AI judge where it goes wrong |
+| A8 | [Break the Bot](https://dhavalk21.github.io/ai-gym/games/break-the-bot/) | Name the risk in eight AI incidents, then pick the guardrail that stops it |
 
 ## Built with
 
