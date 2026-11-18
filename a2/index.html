@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2 Where AI fits | AI Gym</title>
+<meta name="description" content="Where AI fits in a product: automation or augmentation, the use-case canvas, and build, buy or partner. Three lessons, a hands-on lab, two real cases and the Fit or Fad game.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/station.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='12' width='28' height='4' rx='2' fill='%238A939D'/%3E%3Crect x='5' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3Crect x='18' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3C/svg%3E">
+<style>
+  .ladder { display: grid; gap: 6px; margin: 8px 0 12px; max-width: 680px; }
+  .ladder div { display: flex; gap: 12px; align-items: baseline; padding: 9px 14px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--ground); font-size: 15px; }
+  .ladder div b { flex: none; width: 92px; color: var(--petrol); }
+  .ladder div:nth-child(n+4) { border-color: #E9C46A; }
+  .canvas { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 8px 0 12px; max-width: 720px; }
+  .canvas div { padding: 10px 12px; border-radius: 6px; background: var(--petrol-soft); font-size: 15px; }
+  .canvas div b { display: block; color: var(--petrol); }
+</style>
+</head>
+<body data-station="a2">
+
+<div class="hero-band">
+<header class="wrap top">
+  <a class="brand" href="../">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="0" y="12" width="28" height="4" rx="2" fill="#8A939D"/><rect x="5" y="3" width="5" height="22" rx="1.5" fill="#155E63"/><rect x="18" y="3" width="5" height="22" rx="1.5" fill="#155E63"/></svg>
+    AI Gym
+  </a>
+  <nav aria-label="Main">
+    <a href="../#floor">Gym floor</a>
+    <a href="../#session">The session</a>
+    <a href="../#rack">Playground</a>
+    <a href="../#toolbox">Toolbox</a>
+    <span class="links">
+      <a class="btn sm" href="https://pmgym.netlify.app/">PM Gym</a>
+      <a class="btn sm" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+      <a class="btn sm" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+      <a class="btn sm solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+    </span>
+  </nav>
+</header>
+<section class="wrap" style="padding-block: 8px 40px">
+  <div class="crumbs"><a href="../#floor">Gym floor</a> / Zone 1, Understand the machine / A2</div>
+  <div class="title">
+    <svg class="plate-badge" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#E3A82B"/><circle cx="28" cy="28" r="20" fill="none" stroke="#17202A" stroke-opacity=".22" stroke-width="2"/><text x="28" y="34" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="17" fill="#17202A">A2</text></svg>
+    <div>
+      <span class="zone-tag"><i style="background:#E3A82B"></i>Zone 1, Understand the machine</span>
+      <h1>Where AI fits</h1>
+      <p>Which problems deserve AI, what role people keep, and what stays yours when every competitor has the same models. Then score your own ideas.</p>
+    </div>
+  </div>
+  <div class="meta"><span>3 lessons</span><span>Lab, about 35 min</span><span>2 cases</span><span>Game: Fit or Fad</span><span id="lprog">0 of 3 lessons done</span></div>
+</section>
+</div>
+
+<nav class="stepnav" aria-label="Session steps"><div class="wrap" id="stepnav"></div></nav>
+
+<main class="wrap">
+
+  <section id="warmup" class="block">
+    <h2>Warm-up <span class="tag">Optional, 3 minutes</span></h2>
+    <p>Make three quick predictions before the lessons, and say how sure you are. You'll see how you did at the end. <a href="#lessons">Skip to the lessons</a></p>
+    <div class="wu">
+      <div class="story">
+        <small>The situation</small>
+        <p>Ledgerly's board wants "an AI strategy" by the next meeting. The team has a long list of ideas, from a pricing-page chatbot to auto-sent reminders. You get to choose what goes forward.</p>
+        <div class="quote">"Everyone's adding AI. Which of these actually helps our users, and which ones are we doing just because we can?"</div>
+        <p class="science">Why predict first? Trying a question before the lesson makes the lesson stick better, even when the first guess is wrong. Rating your confidence trains you to notice what you don't know yet.</p>
+      </div>
+      <div id="warmup-ui"></div>
+    </div>
+    <script type="application/json" id="warmup-config">{"questions": [{"q": "Which idea most needs a person to approve the AI's work?", "o": ["Suggesting a title for an invoice", "Emails that go to the user's clients", "Sorting the user's own expenses into categories"], "a": 1, "why": "It's client-facing and can't be undone. Lesson 1's autonomy ladder shows why."}, {"q": "An idea can be solved by a simple, exact rule. What do you do?", "o": ["Build the rule; save AI for messier problems", "Use AI anyway, it's more modern", "Use a bigger model to be safe"], "a": 0, "why": "Rules are exact, fast and free. Lesson 2's canvas scores this as a poor fit."}, {"q": "What protects an AI feature from being copied?", "o": ["Using the newest model", "A secret prompt", "Your own data and workflow, improving with use"], "a": 2, "why": "Everyone can call the same models. Lesson 3 is about what stays yours."}]}</script>
+  </section>
+
+  <section id="lessons" class="block">
+    <h2>Lessons</h2>
+    <p>Three short lessons. Each runs the same way: the idea, the framework, a real example, where it breaks, and a quick drill.</p>
+    <div class="lessons">
+<details class="lesson" data-lesson="1"><summary><span class="ln">1</span><span class="lt"><b>Automate or augment?</b><span>Decide the person's role before you pick a model.</span></span><span class="lmin">8 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>Every AI feature makes a choice about people. <b>Automation</b> means the AI does the task and nobody checks each result. <b>Augmentation</b> means the AI helps a person do the task: it suggests, drafts or finds, and the person decides.</p><p>Google's People + AI Guidebook frames it as a question to research with users: automate tasks people find hard, boring or unpleasant; augment tasks people enjoy, feel responsible for, or where the stakes are high.</p><p>Augmentation is where much of the proven value sits. In a controlled experiment by GitHub and Microsoft researchers, developers with GitHub Copilot finished a coding task 55.8% faster than those without it (Peng et al., 2023).</p></div><div class="part"><h4>The framework</h4><p><b>The autonomy ladder.</b> Start low, and climb only with evidence:</p><div class="ladder"><div><b>1. Suggests</b>The person chooses from options.</div><div><b>2. Drafts</b>The person edits and sends.</div><div><b>3. Acts on OK</b>AI does it after the person approves.</div><div><b>4. Acts, audited</b>AI does it; people check samples.</div><div><b>5. Acts alone</b>No routine human check.</div></div><p>Pick the rung from two things: what a mistake costs, and how easily it can be undone. Move up when the data shows people stopped correcting the AI.</p></div><div class="part"><h4>Real example</h4><p>In a 2023 experiment with 758 Boston Consulting Group consultants, those using GPT-4 on tasks inside its abilities completed 12.2% more tasks, 25.1% faster, with more than 40% higher quality. But on a task chosen to sit just outside its abilities, consultants using AI were 19 percentage points less likely to get the right answer than those without it.</p><p>The researchers call this the <b>jagged frontier</b>: tasks that look equally hard can fall on either side of what AI does well.</p><p>Source: Dell'Acqua, Mollick and others, "Navigating the Jagged Technological Frontier", Harvard Business School working paper 24-013, 2023.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Rubber-stamping:</b> a "human in the loop" who approves everything without reading is automation with extra steps. Make checking easy, and watch the approval rate.</li><li><b>The frontier moves, unevenly:</b> a task that failed last year may work now, and a similar-looking task may still fail. Test each one.</li><li><b>Users may not want it:</b> the PAIR Guidebook warns that some people simply don't want a task automated. Ask them.</li></ul></div><div class="part drill"><h4>Drill: Pick the rung</h4><div class="check stack" data-answer="1"><p class="cq">Ledgerly wants AI to write payment reminders that go to the user's clients. Where on the ladder do you start?</p><div class="opts"><button type="button" class="opt">Rung 5: send them automatically</button><button type="button" class="opt">Rung 2: AI drafts, the user edits and sends</button><button type="button" class="opt">Don't use AI for emails at all</button></div><p class="cfb" data-ok="Right. Client-facing, hard to undo: start with drafts, and climb when edits drop." data-no="Rung 2. The email goes to a client and can't be unsent, so start with drafts the user approves."></p></div></div></div></details>
+<details class="lesson" data-lesson="2"><summary><span class="ln">2</span><span class="lt"><b>The use-case canvas</b><span>Score ideas before you build them, and ask if a rule would do.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>Good AI use cases sit where a real, frequent user problem meets something AI is unusually good at: messy language, images, summaries, drafts and personalisation. Poor ones need exact answers, predictable behaviour, or full transparency, which ordinary code gives you for free.</p><p>Most AI ideas fail long before the model matters: they solve a problem nobody has, or they never fit into how people actually work.</p></div><div class="part"><h4>The framework</h4><p><b>The canvas:</b> score each idea from 1 to 5 on four questions.</p><div class="canvas"><div><b>Value</b>How painful and how frequent is the problem?</div><div><b>Fit</b>Is it messy language or judgement, or would a rule do?</div><div><b>Data</b>Do we have the context the model needs?</div><div><b>Cost of error</b>How bad is a mistake, and can it be undone?</div></div><p>Rank by <b>value × fit × data</b>. Then use the cost of error to pick the rung on the autonomy ladder, not to kill a good idea outright. Any idea where "a rule would do" scores 1 on fit: build the rule.</p></div><div class="part"><h4>Real example</h4><p>In July 2025, a report from MIT's Project NANDA, "The GenAI Divide", said 95% of the organisations it studied saw no measurable return from generative AI, and blamed integration and learning gaps more than the models. Treat the number with care: critics, including Wharton professor Kevin Werbach, questioned how transparent its method and sample were.</p><p>The useful lesson survives either way: picking the use case and fitting it into real work decide more than the model does.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Scores are guesses.</b> Check "fit" by trying the idea on 20 real examples in a playground before anyone builds anything.</li><li><b>AI theatre:</b> features that demo well but nobody uses. If you can't name the user and the problem, you're building theatre.</li><li><b>The canvas favours the obvious.</b> Leave room for one bolder bet, and test it cheaply.</li></ul></div><div class="part drill"><h4>Drill: Would a rule do?</h4><div class="check stack" data-answer="2"><p class="cq">Which idea scores lowest on fit?</p><div class="opts"><button type="button" class="opt">Summarising long client email threads</button><button type="button" class="opt">Suggesting a category for messy bank transactions</button><button type="button" class="opt">Checking that an IBAN has the right length and checksum</button></div><p class="cfb" data-ok="Right. IBAN validation has an exact rule. Code does it perfectly, instantly and for free." data-no="The IBAN check. It has an exact rule, so code wins on accuracy, speed and cost."></p></div></div></div></details>
+<details class="lesson" data-lesson="3"><summary><span class="ln">3</span><span class="lt"><b>Build, buy or partner, and real moats</b><span>What stays yours when every competitor has the same models?</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>You have three paths. <b>Buy</b>: use AI that ships inside tools you already pay for. <b>Partner</b>: build your feature on a model provider's API, which is what most product teams do. <b>Build</b>: train or host your own models, which only pays off with unusual data, scale or privacy needs.</p><p>Whichever you choose, the models keep getting better and cheaper for everyone, including your competitors. So "we use the best model" is never an advantage for long.</p></div><div class="part"><h4>The framework</h4><p><b>The moat check:</b> ask what stays yours when the model improves for everyone.</p><ol><li><b>Your data:</b> context nobody else has, such as each client's payment history.</li><li><b>Your workflow:</b> AI placed where the work already happens, so it's easier than switching tools.</li><li><b>Your feedback loop:</b> corrections that make the feature better the more it's used.</li><li><b>Your trust and distribution:</b> users who already rely on you with their money or data.</li></ol><p>A feature with none of these is a thin wrapper, and the next model release can copy it.</p></div><div class="part"><h4>Real example</h4><p>Jasper, an AI writing tool for marketers, raised $125 million at a $1.5 billion valuation in October 2022, largely on top of OpenAI's models. Weeks later, ChatGPT launched for free. In 2023 Jasper laid off staff, cut its revenue forecast by at least 30% and lowered its internal valuation by about 20%, according to reporting by The Information. It then refocused on enterprise marketing teams.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>"Data moat" is often overrated.</b> Data only protects you if it's unique and makes answers measurably better.</li><li><b>Platform risk:</b> the provider you build on can ship your feature. Build where you own the workflow.</li><li><b>Lock-in:</b> keep the model swappable behind your own interface, so a better or cheaper model is a change, not a rebuild.</li></ul></div><div class="part drill"><h4>Drill: Find the moat</h4><div class="check stack" data-answer="0"><p class="cq">Which Ledgerly AI feature is hardest for a competitor to copy?</p><div class="opts"><button type="button" class="opt">Late-payment predictions that learn from each client's real payment history inside Ledgerly</button><button type="button" class="opt">A chat window that answers general questions about invoicing</button><button type="button" class="opt">Using the newest frontier model</button></div><p class="cfb" data-ok="Right. Proprietary data plus a feedback loop inside the workflow is the durable part." data-no="The payment predictions: they run on Ledgerly's own data and get better with use. The others anyone can copy."></p></div></div></div></details>
+    </div>
+  </section>
+
+  <section id="lab" class="block">
+    <h2>Lab: Score your AI ideas <span class="tag">About 35 minutes</span></h2>
+    <p>Use an AI assistant to generate ideas for your own product, score them on the canvas in a spreadsheet, then pressure-test the winner. Your ticks and notes stay in this browser.</p>
+    <div id="lab-ui"></div>
+    <script type="application/json" id="lab-config">{"needs": ["Any free chat assistant: Claude, ChatGPT or Gemini.", "Google Sheets (free) or any spreadsheet.", "Describe your product in general terms. Leave out confidential details and customer data."], "parts": [{"title": "Generate ideas, sceptically", "tool": "Any chat assistant", "url": "", "time": "10 min", "goal": "Get a long list of AI ideas for your product, with the doubts built in.", "steps": [{"t": "Fill in the brackets and paste this into your assistant:", "copy": "I'm a product manager for [product], which helps [users] to [job]. Their three most frequent, painful tasks are: [task 1], [task 2], [task 3].\n\nSuggest 12 places where AI could help. For each one, give:\n- automation or augmentation\n- what happens if the AI gets it wrong\n- whether a simple rule, template or better screen could do it instead\n\nBe sceptical. Mark any idea that is mainly for show."}, "Read the list and cross out anything that doesn't map to a real task your users have.", "Add two ideas of your own that the assistant missed."], "see": "A mix: a few strong ideas, several where a rule would do, and some that are mainly for show. The sceptical instructions make the weak ones easier to spot.", "tip": "If every idea sounds great, the prompt wasn't sceptical enough. Ask: \"Which three of these would you kill first, and why?\"", "checks": ["I have at least 10 ideas tied to real user tasks", "I crossed out the ones a rule could do"]}, {"title": "Score them on the canvas", "tool": "Google Sheets", "url": "https://sheets.new", "time": "15 min", "goal": "Turn gut feel into a ranked list you can defend in a meeting.", "steps": [{"t": "Open a new sheet. Paste this into cell A1, then use Data > Split text to columns if it lands in one column:", "copy": "Idea,Value,Fit,Data,Cost of error,Score,Rung\nSort bank transactions into categories,4,5,4,2,=B2*C2*D2,4\nDraft late-payment reminders,5,4,4,3,=B3*C3*D3,2\nAI chatbot on the pricing page,1,2,2,3,=B4*C4*D4,-"}, "Replace the Ledgerly rows with your top 8 ideas. Score each 1 to 5 (for cost of error, 5 means very costly) and copy the formula down.", "Sort by Score. For your top 3, pick a rung on the autonomy ladder from the cost of error.", "For your top idea, try it on 5 real-looking examples in a playground. Does the fit score hold up?"], "see": "A clear top three. Ideas with high value but a high cost of error usually land on a low rung, as drafts or suggestions, not out of the list.", "tip": "If everything scores 4s and 5s, score relative to each other: force exactly one idea to get a 5 for value.", "checks": ["I scored at least 8 ideas", "I chose a rung for my top 3", "I tried my top idea on a few examples"]}, {"title": "Pressure-test the winner", "tool": "Any chat assistant", "url": "", "time": "10 min", "goal": "Find the riskiest assumption behind your top idea and the cheapest way to test it.", "steps": [{"t": "Paste this, with your top idea filled in:", "copy": "It's a year after we launched [idea] in [product], and it failed. Write the five most likely reasons, from most to least likely. Then list the three cheapest tests we could run in the next two weeks to check the top reasons before we build anything. Also tell me: could a rule, a template or a better screen solve 80% of this problem?"}, "Pick the reason that worries you most, and the test that would answer it fastest."], "see": "A short list of failure modes, usually led by \"nobody needed it\", \"it didn't fit how people work\" or \"mistakes cost too much\", and a few cheap tests like a fake button, a hand-run pilot or a playground trial.", "tip": "This is a pre-mortem: imagining the failure first makes the risks easier to see. PM Gym's M1 station covers riskiest assumptions in depth.", "checks": ["I know my idea's riskiest assumption", "I chose one cheap test to run"]}], "card": {"title": "My AI idea scorecard", "intro": "Your top idea and its case. You'll use it in Ship it below and in the capstone.", "fields": [{"id": "top", "label": "My top idea", "ph": "For example: draft late-payment reminders"}, {"id": "score", "label": "Its score and rung", "ph": "For example: 80, rung 2"}, {"id": "killed", "label": "One idea I killed, and why", "ph": "A rule could do it...", "long": true}, {"id": "risk", "label": "Riskiest assumption", "ph": "", "long": true}, {"id": "test", "label": "My cheapest test", "ph": "For example: a fake 'Draft with AI' button", "long": true}]}}</script>
+  </section>
+
+  <section id="cases" class="block">
+    <h2>Cases</h2>
+    <p>One company that used AI to make people faster, and one that pushed automation too far and had to walk it back.</p>
+    <div class="cases">
+      <div class="case" style="border-color: var(--green)"><small style="color: var(--green)">Got it right</small><h3>GitHub Copilot</h3><p>Before launching Copilot widely, GitHub and Microsoft researchers ran a controlled experiment in May and June 2022 with 95 freelance developers. Each was asked to build an HTTP server in JavaScript as fast as possible. Those with Copilot finished 55.8% faster than those without (Peng et al., "The Impact of AI on Developer Productivity", 2023). Copilot suggests; the developer decides what to keep.</p><p class="take">Augment first, and measure the gain in a real task before you claim it.</p></div>
+      <div class="case" style="border-color: var(--red)"><small style="color: var(--red-text)">Got it wrong</small><h3>Klarna's customer service</h3><p>In February 2024, Klarna said its OpenAI-powered assistant was doing the work of 700 full-time customer service agents, and the company had paused hiring. In May 2025, CEO Sebastian Siemiatkowski told Bloomberg that cost had been "too predominant" a factor and the result was lower quality, and Klarna started hiring human agents again so customers could always reach a person.</p><p class="take">Optimising only for cost hides the cost of errors. Keep a human path, and measure quality, not just volume.</p></div>
+    </div>
+  </section>
+
+  <section id="game" class="block">
+    <h2>Game: Fit or Fad</h2>
+    <p>Eight AI ideas from Ledgerly's backlog. Automate, augment or kill each one, then answer the question that decides whether it works. About 10 minutes. <a href="../games/fit-or-fad/">Open it on its own page</a> to share.</p>
+    <div id="gamebox" style="margin-top: 24px"></div>
+  </section>
+
+  <section id="apply" class="block">
+    <h2>Ship it: your AI fit card</h2>
+    <p>Take your top idea from the lab, or any AI idea for your product, and build its fit card step by step. Your answers stay in this browser.</p>
+    <div class="builder" id="builder"></div>
+    <script type="application/json" id="apply-config">{"title": "AI fit card", "sentence": "{idea}, to solve: {problem}.", "rows": [{"label": "Mode", "text": "{mode}"}, {"label": "Starting rung", "text": "{rung}"}, {"label": "If it's wrong", "text": "{wrong}"}, {"label": "Context it needs", "text": "{data}"}, {"label": "What stays ours", "text": "{moat}"}], "fields": [{"id": "idea", "label": "The AI idea", "placeholder": "For example: summarise long client email threads", "blank": "Your AI idea"}, {"id": "problem", "label": "The user problem it solves (not \"add AI\")", "placeholder": "For example: account managers lose an hour a day catching up", "blank": "which problem"}, {"id": "mode", "label": "Automate or augment?", "placeholder": "Tap one or describe it", "blank": "mode", "chips": ["Automate", "Augment: AI suggests or drafts, a person decides"]}, {"id": "rung", "label": "Where on the ladder do you start?", "placeholder": "Tap one or describe it", "blank": "rung", "chips": ["1. Suggests", "2. Drafts", "3. Acts on OK", "4. Acts, audited", "5. Acts alone"]}, {"id": "wrong", "label": "What does a mistake cost?", "placeholder": "Tap one or describe it", "blank": "cost of a mistake", "chips": ["Little: easy to see and undo", "Some: annoying or embarrassing", "A lot: money, legal or trust"]}, {"id": "data", "label": "What context does it need, and do you have it?", "placeholder": "For example: the thread plus the account's open tickets; yes", "blank": "context"}, {"id": "moat", "label": "What stays yours when models improve for everyone?", "placeholder": "Tap one or describe it", "blank": "the moat", "chips": ["Our own data", "It sits where the work already happens", "A feedback loop from corrections", "Nothing yet: it's a thin wrapper"]}]}</script>
+    <details class="reveal">
+      <summary>Show a worked example</summary>
+      <div class="model">
+        <p><b>Idea:</b> draft late-payment reminders in Ledgerly. Problem: freelancers put off chasing clients because it's awkward, so they get paid later.</p>
+        <p><b>Canvas:</b> value 5 (frequent and painful), fit 4 (tone and wording are language work), data 4 (Ledgerly has the invoice and payment history), cost of error 3 (it goes to a real client). Score 80.</p>
+        <p><b>Mode and rung:</b> augment, starting at rung 2: AI drafts in the user's tone, the user edits and sends. Watch the edit rate; offer auto-send for gentle first reminders once edits drop near zero.</p>
+        <p><b>Moat:</b> each client's payment history inside Ledgerly lets the reminder pick the right moment and tone. A generic chatbot can't do that.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="check" class="block" style="border-bottom: 0">
+    <h2>Mastery check</h2>
+    <p>Five questions, one at a time. Two come back from A1 to keep them fresh. Then explain the idea in your own words.</p>
+    <div class="mastery" id="mastery">
+<div class="check stack" data-answer="0"><p class="cq">Which task is the best candidate for full automation?</p><div class="opts"><button type="button" class="opt">Sorting expenses into categories, where mistakes are cheap and easy to fix</button><button type="button" class="opt">Sending formal legal notices to clients</button><button type="button" class="opt">Deciding whether to approve a loan</button></div><p class="cfb" data-ok="Right. Cheap, visible, reversible mistakes are the green light." data-no="Expense categories: mistakes are cheap and easy to undo. The others need a person."></p></div>
+<div class="check stack" data-answer="2"><p class="cq">In the BCG "jagged frontier" study, what happened on the task outside AI's abilities?</p><div class="opts"><button type="button" class="opt">Consultants using AI were faster and better</button><button type="button" class="opt">There was no difference</button><button type="button" class="opt">Consultants using AI were less likely to get the right answer</button></div><p class="cfb" data-ok="Right. 19 percentage points less likely, so know where the frontier is." data-no="They were less likely to be right, by 19 percentage points. AI can make people worse on the wrong task."></p></div>
+<div class="check stack" data-answer="1"><p class="cq">What's the most durable advantage for an AI feature?</p><div class="opts"><button type="button" class="opt">Using the newest frontier model</button><button type="button" class="opt">Your own data and workflow, getting better with use</button><button type="button" class="opt">A clever prompt</button></div><p class="cfb" data-ok="Right. Models and prompts can be copied; your data and workflow can't." data-no="Your own data and workflow. Every competitor can call the same models."></p></div>
+<div class="check stack" data-answer="2"><p class="cq">From A1: a user asks how much a specific client owes them right now. Where should that number come from?</p><div class="opts"><button type="button" class="opt">The model's training</button><button type="button" class="opt">A bigger model</button><button type="button" class="opt">A live lookup in your own database</button></div><p class="cfb" data-ok="Right. User-specific, live facts come from your systems." data-no="A live lookup. The model never saw this user's data in training."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">From A1: a model tops a public leaderboard. What does that tell you about your feature?</p><div class="opts"><button type="button" class="opt">It belongs on your shortlist; your own test set decides</button><button type="button" class="opt">It's the right choice</button><button type="button" class="opt">Nothing at all</button></div><p class="cfb" data-ok="Right. Leaderboards shortlist; your examples decide." data-no="It earns a place on the shortlist. Your own examples make the decision."></p></div>
+      <p class="mscore" id="mscore" aria-live="polite"></p>
+    </div>
+    <div class="teach-grid one" id="teach-ui"></div>
+    <script type="application/json" id="teach-config">{"prompt": "A stakeholder asks for \"an AI feature\" in the next release. In 280 characters or fewer, explain how you'd decide where AI fits.", "checks": [{"k": "problem|user|pain|need", "label": "Starts from a user problem"}, {"k": "rule|code|template", "label": "Asks whether a rule would do"}, {"k": "wrong|mistake|error|cost", "label": "Weighs the cost of a mistake"}, {"k": "human|person|review|approve|draft|augment|automat", "label": "Decides the person's role"}, {"k": "data|context|test|example", "label": "Checks data or tests on examples"}], "model": "Start with a frequent, painful user problem, not \"AI\". Skip anything a rule can do. Weigh what a mistake costs to decide if AI drafts or acts. Check we have the data, then test on 20 real examples before we build."}</script>
+    <div class="takeaways">
+      <h3>Key takeaways</h3>
+      <ol>
+        <li><b>Decide the person's role before the model.</b> Automate where mistakes are cheap and reversible; augment where judgement or trust matters, and climb with evidence.</li>
+        <li><b>Score ideas on value, fit, data and cost of error.</b> If a rule would do, build the rule.</li>
+        <li><b>The model isn't your moat.</b> Your data, your workflow, your feedback loop and your users' trust are.</li>
+        <li><b>Test the riskiest assumption cheaply first.</b> Most AI projects stall on fit and integration, not on the model.</li>
+      </ol>
+    </div>
+    <div class="shelf-x"><h3>Expert shelf</h3><p>The best free material on this topic, picked so you can go deeper. Each one is from the people who know it best.</p><div class="xs"><a class="xr" href="https://pair.withgoogle.com/chapter/user-needs/" target="_blank" rel="noopener"><span class="xk"><span>Guide</span><span class="t">30 min</span></span><b>People + AI Guidebook: User Needs + Defining Success</b><span class="who">Google PAIR</span><p>When AI adds value and when it doesn't, plus how to decide between automation and augmentation.</p></a><a class="xr" href="https://pair.withgoogle.com/worksheet/user-needs.pdf" target="_blank" rel="noopener"><span class="xk"><span>Worksheet</span><span class="t">1 hour with your team</span></span><b>User Needs + Defining Success worksheet</b><span class="who">Google PAIR</span><p>A ready-made workshop for deciding whether AI is worth it for a user need.</p></a><a class="xr" href="https://ssrn.com/abstract=4573321" target="_blank" rel="noopener"><span class="xk"><span>Paper</span><span class="t">20 min (abstract and findings)</span></span><b>Navigating the Jagged Technological Frontier</b><span class="who">Dell'Acqua, Mollick and others, 2023</span><p>The best evidence on where AI helps knowledge workers, and where it quietly hurts.</p></a><a class="xr" href="https://arxiv.org/abs/2302.06590" target="_blank" rel="noopener"><span class="xk"><span>Paper</span><span class="t">10 min</span></span><b>The Impact of AI on Developer Productivity</b><span class="who">Peng et al., 2023</span><p>A short, clean example of measuring an AI feature's value with a controlled experiment.</p></a></div></div>
+  </section>
+</main>
+
+<div class="wrap" style="border-top: 1px solid var(--line)">
+  <div class="pager"><a href="../a1/">Previous: A1 How LLMs work, and choosing a model</a><a href="../#floor">Next zone: Talk to models, starting with A3 (opening soon)</a></div>
+</div>
+
+<footer class="wrap site">
+  <span>AI Gym by Dhaval Kareliya. Free, hands-on AI practice for product managers.</span>
+  <span class="links">
+    <a class="btn" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+    <a class="btn" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+    <a class="btn solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+  </span>
+</footer>
+
+<script src="../assets/progress.js"></script>
+<script src="../assets/station.js"></script>
+<script src="../assets/fit-or-fad.js"></script>
+<script>FitOrFad(document.getElementById("gamebox"));</script>
+</body>
+</html>
