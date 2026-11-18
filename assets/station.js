@@ -1,6 +1,6 @@
 // Shared behaviour for station pages. Reads <body data-station="m1">.
 // Lessons, mastery check and takeaways are built from the page's own markup;
-// Apply ("Build your card") and Teach read JSON from <script type="application/json"> blocks.
+// Apply ("Build your card") reads JSON from <script type="application/json"> blocks.
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var station = document.body.dataset.station || "station";
@@ -243,7 +243,7 @@
     paintTeach();
   }
 
-  /* ---------- Lab: hands-on steps in real tools, a checklist and a lab card ---------- */
+  /* ---------- Lab: hands-on steps in real tools, as collapsible parts with a checklist (first part open) ---------- */
   var labCfgEl = $("lab-config");
   if (labCfgEl) {
     var L = JSON.parse(labCfgEl.textContent), lbkey = "aigym-" + station + "-lab", lb = store.get(lbkey) || { done: {}, card: {} };
@@ -252,8 +252,11 @@
     var html = '<div class="lab-head"><div class="lab-meter"><b id="labn"></b><div class="mp-bar"><i id="labbar"></i></div></div>' +
       '<ul class="lab-needs">' + L.needs.map(function (n) { return '<li>' + n + '</li>'; }).join("") + '</ul></div>';
     html += L.parts.map(function (p, pi) {
-      return '<section class="lab-part" id="lab-' + (pi + 1) + '"><header><span class="lab-n">' + (pi + 1) + '</span><div><h3>' + esc(p.title) + '</h3><p class="lab-tool">' +
-        (p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.tool) + ' ↗</a>' : esc(p.tool)) + ' · ' + esc(p.time) + '</p></div></header>' +
+      return '<section class="lab-part' + (pi === 0 ? ' open' : '') + '" id="lab-' + (pi + 1) + '" data-lp="' + pi + '">' +
+        '<button type="button" class="lp-head" aria-expanded="' + (pi === 0) + '"><span class="lab-n">' + (pi + 1) + '</span><span class="lp-t"><b>' + esc(p.title) + '</b>' +
+        '<span class="lab-tool">' + esc(p.tool) + ' · ' + esc(p.time) + '</span></span><span class="lsn-cta"><span class="lp-cta-t"></span>' + CHEV + '</span></button>' +
+        '<div class="lp-body"' + (pi === 0 ? '' : ' hidden') + '>' +
+        (p.url ? '<p class="lp-open"><a class="btn sm" href="' + esc(p.url) + '" target="_blank" rel="noopener">Open ' + esc(p.tool) + ' ↗</a></p>' : '') +
         '<p class="lab-goal">' + p.goal + '</p><ol class="lab-steps">' + p.steps.map(function (st) {
           var t = typeof st === "string" ? { t: st } : st;
           return '<li><p>' + t.t + '</p>' + (t.copy ? '<div class="copybox"><pre>' + esc(t.copy) + '</pre><button type="button" class="btn sm" data-copy>Copy</button><span class="copied" aria-live="polite"></span></div>' : '') + '</li>';
@@ -263,24 +266,31 @@
         '<div class="lab-checks"><small>Done when</small>' + p.checks.map(function (c, ci) {
           var id = pi + "-" + ci;
           return '<label class="lab-check"><input type="checkbox" data-lc="' + id + '"' + (lb.done[id] ? " checked" : "") + '><span>' + c + '</span></label>';
-        }).join("") + '</div></section>';
+        }).join("") + '</div></div></section>';
     }).join("");
-    html += '<div class="labcard"><div class="lc-head"><small>Your lab card</small><h3>' + esc(L.card.title) + '</h3><p>' + esc(L.card.intro) + '</p></div><div class="lc-fields">' +
-      L.card.fields.map(function (f) {
-        return '<label><span>' + esc(f.label) + '</span>' + (f.long ? '<textarea rows="3" data-lf="' + f.id + '" placeholder="' + esc(f.ph || "") + '"></textarea>' : '<input type="text" data-lf="' + f.id + '" placeholder="' + esc(f.ph || "") + '">') + '</label>';
-      }).join("") + '</div><div class="row-actions"><button type="button" class="btn solid" id="lccopy">Copy my lab card</button><span class="copied" id="lcmsg" aria-live="polite"></span></div></div>';
     lroot.innerHTML = html;
     function paintLab() {
       var n = Object.keys(lb.done).filter(function (k) { return lb.done[k]; }).length;
       $("labn").textContent = n + " of " + total + " lab checks done";
       $("labbar").style.width = Math.round(n / total * 100) + "%";
+      lroot.querySelectorAll(".lab-part").forEach(function (sec) {
+        var pi = +sec.dataset.lp, p = L.parts[pi], open = sec.classList.contains("open");
+        var all = p.checks.every(function (c, ci) { return lb.done[pi + "-" + ci]; });
+        sec.classList.toggle("done", all);
+        sec.querySelector(".lab-n").textContent = all ? "✓" : String(pi + 1);
+        sec.querySelector(".lp-cta-t").textContent = open ? "Close" : all ? "Review" : "Open";
+        sec.querySelector(".lp-head").setAttribute("aria-expanded", open);
+      });
     }
+    lroot.querySelectorAll(".lp-head").forEach(function (h) {
+      h.onclick = function () {
+        var sec = h.parentNode, open = !sec.classList.contains("open");
+        sec.classList.toggle("open", open); sec.querySelector(".lp-body").hidden = !open; paintLab();
+      };
+    });
+    if (/^#lab-\d+$/.test(location.hash)) { var tgt = document.querySelector(location.hash); if (tgt && !tgt.classList.contains("open")) tgt.querySelector(".lp-head").click(); }
     lroot.querySelectorAll("[data-lc]").forEach(function (c) { c.onchange = function () { lb.done[c.dataset.lc] = c.checked; store.set(lbkey, lb); paintLab(); }; });
-    lroot.querySelectorAll("[data-lf]").forEach(function (f) { if (lb.card[f.dataset.lf]) f.value = lb.card[f.dataset.lf]; f.addEventListener("input", function () { lb.card[f.dataset.lf] = f.value; store.set(lbkey, lb); }); });
     lroot.querySelectorAll("[data-copy]").forEach(function (b) { b.onclick = function () { copyText(b.parentNode.querySelector("pre").textContent, b.parentNode.querySelector(".copied")); }; });
-    $("lccopy").onclick = function () {
-      copyText(L.card.title + "\n" + L.card.fields.map(function (f) { return f.label + ": " + (lb.card[f.id] || "-"); }).join("\n"), $("lcmsg"));
-    };
     paintLab();
   }
 

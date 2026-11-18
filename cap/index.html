@@ -71,7 +71,7 @@
     <div>
       <span class="zone-tag"><i style="background:#D07A45"></i>Capstone, the final station</span>
       <h1>Ship an AI feature end to end</h1>
-      <p>Take one AI feature from problem to launch plan, using everything from the gym. Your lab cards are already most of the work: this page gathers them into one portfolio piece you can share, present in an interview, or bring to your team.</p>
+      <p>Take one AI feature from problem to launch plan, using everything from the gym. Your "Ship it" plans from each station are already most of the work: this page gathers them into one portfolio piece you can share, present in an interview, or bring to your team.</p>
     </div>
   </div>
   <div class="meta"><span>9 deliverables</span><span>About 3 to 5 hours, over a week or two</span><span>Your own feature, or Ledgerly's</span></div>
@@ -99,13 +99,13 @@
 
   <section id="portfolio" class="block">
     <h2>Your portfolio so far</h2>
-    <p>Everything you've written in lab cards and "Ship it" cards across the gym, gathered from this browser. Empty cards link back to their station. Copy it as Markdown to paste into a doc, or save it as a PDF.</p>
+    <p>Every "Ship it" plan you've written across the gym, gathered from this browser. Empty cards link back to their station. Copy it as Markdown to paste into a doc, or save it as a PDF.</p>
     <div class="cap-actions">
       <button type="button" class="btn solid" id="capcopy">Copy as Markdown</button>
       <button type="button" class="btn" id="capprint">Save as PDF</button>
       <span class="copied" id="capmsg" aria-live="polite"></span>
     </div>
-    <div class="pf" id="pf"><p class="empty">Gathering your cards...</p></div>
+    <div class="pf" id="pf"><p class="empty">Gathering your plans...</p></div>
   </section>
 
   <section id="review" class="block" style="border-bottom: 0">
@@ -179,20 +179,18 @@
     return fetch("../" + s + "/").then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
       var doc = new DOMParser().parseFromString(html, "text/html"), out = [];
       var name = (doc.querySelector("h1") || {}).textContent || s.toUpperCase();
-      var lab = readCfg(doc, "lab-config"), lb = store.get("aigym-" + s + "-lab") || {};
-      if (lab && lab.card) out.push({ st: s, name: name, title: lab.card.title, kind: "Lab card", rows: lab.card.fields.map(function (f) { return [f.label, (lb.card || {})[f.id] || ""]; }) });
       var ap = readCfg(doc, "apply-config"), av = store.get("aigym-" + s + "-card") || {};
-      if (ap && ap.fields) out.push({ st: s, name: name, title: ap.title, kind: "Ship it card", rows: ap.fields.map(function (f) { return [f.label, av[f.id] || ""]; }) });
+      if (ap && ap.fields) out.push({ st: s, name: name, title: ap.title, kind: "Ship it plan", rows: ap.fields.map(function (f) { return [f.label, av[f.id] || ""]; }) });
       return out;
     }).catch(function () { return []; });
   })).then(function (lists) {
     cards = [].concat.apply([], lists);
     var filled = cards.filter(function (c) { return c.rows.some(function (r) { return r[1]; }); }).length;
-    $("pf").innerHTML = '<p>' + filled + ' of ' + cards.length + ' cards have something in them.</p>' + cards.map(function (c) {
+    $("pf").innerHTML = '<p>' + filled + ' of ' + cards.length + ' plans have something in them.</p>' + cards.map(function (c) {
       var has = c.rows.some(function (r) { return r[1]; });
       return '<div class="pf-card' + (has ? '' : ' blank') + '"><h3>' + esc(c.title) + '</h3><p class="pf-sub">' + c.st.toUpperCase() + ' ' + esc(c.name) + ', ' + c.kind + '</p>' +
         (has ? '<dl>' + c.rows.filter(function (r) { return r[1]; }).map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join("") + '</dl>'
-             : '<p class="empty">Not filled yet. <a href="../' + c.st + '/#' + (c.kind === "Lab card" ? "lab" : "apply") + '">Open ' + c.st.toUpperCase() + '</a></p>') + '</div>';
+             : '<p class="empty">Not filled yet. <a href="../' + c.st + '/#' + "apply" + '">Open ' + c.st.toUpperCase() + '</a></p>') + '</div>';
     }).join("");
   });
 
@@ -202,7 +200,7 @@
       var k = li.querySelector("[data-cd]").dataset.cd, t = li.querySelector("b").textContent;
       lines.push("- [" + (cap.done[k] ? "x" : " ") + "] " + t + (cap.card[k] ? ": " + cap.card[k] : ""));
     });
-    lines.push("", "## Lab and Ship it cards", "");
+    lines.push("", "## Ship it plans", "");
     cards.forEach(function (c) {
       var rows = c.rows.filter(function (r) { return r[1]; }); if (!rows.length) return;
       lines.push("### " + c.title + " (" + c.st.toUpperCase() + ")");

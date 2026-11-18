@@ -350,3 +350,19 @@ table.example th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
 .way h3 { font-size: 28px; font-weight: 700; margin: 2px 0 6px; }
 .way p { margin: 0 0 8px; color: var(--ink-2); font-size: 16px; }
 .way p:last-child { margin: 0; }
+
+/* ===== Lab parts as collapsible cards (first open) ===== */
+.lab-part { padding: 0; transition: border-color .15s, box-shadow .15s, transform .15s; }
+.lab-part.open { border-color: var(--ink); }
+.lab-part:not(.open):hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 6px 0 -2px #CDD2D8; }
+.lp-head { width: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 20px 24px; background: none; border: 0; text-align: left; cursor: pointer; color: var(--ink); min-height: 44px; font: inherit; }
+.lp-t { flex: 1 1 260px; min-width: 0; }
+.lp-t b { display: block; font-family: var(--cond); font-weight: 700; font-size: 28px; line-height: 1.1; }
+.lp-t .lab-tool { display: block; }
+.lab-part.done .lab-n { background: var(--ok); }
+.lab-part:not(.open):hover .lsn-cta { background: var(--petrol); color: #fff; }
+.lab-part.done:not(.open) .lsn-cta { background: #fff; border-color: var(--ok); color: var(--ok); }
+.lab-part.open .lsn-cta svg { transform: rotate(90deg); }
+.lp-body { padding: 0 26px 24px; }
+.lp-open { margin: 0 0 4px; }
+@media (max-width: 640px) { .lp-head { padding: 16px; } .lp-body { padding: 0 16px 18px; } .lp-t b { font-size: 24px; } }

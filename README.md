@@ -10,7 +10,7 @@
 
 Product managers don't need to train models, but they do need to build, judge and ship AI features alongside engineers. Reading about AI doesn't get you there. Doing it does.
 
-So every station has a **lab**: you work in real tools, step by step, with prompts and code to copy and a free path for everything. You count tokens, blind-test models, call an API, build a RAG assistant and a prototype, write evals and guardrails, model costs and draft an AI spec. The capstone gathers your lab cards into one portfolio piece.
+So every station has a **lab**: you work in real tools, step by step, with prompts and code to copy and a free path for everything. You count tokens, blind-test models, call an API, build a RAG assistant and a prototype, write evals and guardrails, model costs and draft an AI spec. The capstone gathers your "Ship it" plans into one portfolio piece.
 
 Everything is free, needs no sign-up, and works in the browser. Your progress stays in your own browser.
 
@@ -20,11 +20,11 @@ Everything is free, needs no sign-up, and works in the browser. Your progress st
 | --- | --- | --- |
 | Warm-up | Make three quick predictions and rate how sure you are | 3 min |
 | Lessons | Three short lessons: the idea, the framework, a real example, where it breaks, and a drill | about 25 min |
-| **Lab** | Do it yourself in real, free tools, with a checklist and a lab card | 30 to 45 min |
+| **Lab** | Do it yourself in real, free tools, with a checklist | 30 to 45 min |
 | Cases | One company that got it right, one that got it wrong | 10 min |
 | Game | Make the calls yourself in a scored scenario | 10 min |
 | Ship it | Apply the idea to your own product with a guided card | 15 min |
-| Check | Five questions (two from earlier stations), then explain it in your own words | 10 min |
+| Check | Five questions, two of them from earlier stations | 10 min |
 
 Each station ends with an **expert shelf**: a handful of the best free videos, papers and guides on the topic, from the people who know it best.
 
@@ -34,7 +34,6 @@ Each station ends with an **expert shelf**: a handful of the best free videos, p
 - **Retrieval practice:** drills, games and checks beat re-reading.
 - **Spacing and interleaving:** questions from earlier stations come back in later checks.
 - **Calibration:** rating your confidence, then comparing it with your results.
-- **Generation:** explaining an idea in your own words shows whether you really understand it.
 
 Further reading: [Dunlosky et al., 2013](https://doi.org/10.1177/1529100612453266) and [Donoghue and Hattie, 2021](https://www.doi.org/10.3389/feduc.2021.581216).
 
@@ -51,7 +50,7 @@ Twelve stations in six zones, in the order an AI feature gets built, plus a setu
 | **Measure quality** | [A7 Evals](https://dhavalk21.github.io/ai-gym/a7/), [A8 Guardrails, safety and observability](https://dhavalk21.github.io/ai-gym/a8/) | Live |
 | **Ship** | [A9 AI UX and trust](https://dhavalk21.github.io/ai-gym/a9/), [A10 AI economics and pricing](https://dhavalk21.github.io/ai-gym/a10/) | Live |
 | **Lead** | [A11 Responsible AI and the EU AI Act](https://dhavalk21.github.io/ai-gym/a11/), [A12 The AI-native PM](https://dhavalk21.github.io/ai-gym/a12/) | Live |
-| **Capstone** | [Ship an AI feature end to end](https://dhavalk21.github.io/ai-gym/cap/): nine deliverables, with all your lab cards gathered into one portfolio piece | Live |
+| **Capstone** | [Ship an AI feature end to end](https://dhavalk21.github.io/ai-gym/cap/): nine deliverables, with your "Ship it" plans gathered into one portfolio piece | Live |
 
 ## Games
 

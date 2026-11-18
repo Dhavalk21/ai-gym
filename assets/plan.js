@@ -20,5 +20,5 @@ window.AIGYM = {
     { code: "A11", zone: 5, name: "Responsible AI and the EU AI Act", short: "EU AI Act", desc: "Risk tiers and timelines, GDPR meets AI, and documentation that holds up.", game: "Risk Tier", lab: "Classify AI features and draft a transparency notice", page: "a11/" },
     { code: "A12", zone: 5, name: "The AI-native PM", short: "AI-native PM", desc: "The AI spec with evals as acceptance criteria, launching and measuring AI features, and AI in your own work.", game: "Launch Control", lab: "Write an AI spec and build your toolkit", page: "a12/" }
   ],
-  capstone: { code: "Cap", zone: 5, name: "Capstone", desc: "Ship an AI feature end to end: spec, prototype, a 20-case eval, guardrails, a cost model and a launch metric, built from your lab cards.", game: "The real thing", lab: "Your portfolio piece", page: "cap/" }
+  capstone: { code: "Cap", zone: 5, name: "Capstone", desc: "Ship an AI feature end to end: spec, prototype, a 20-case eval, guardrails, a cost model and a launch metric, built from your Ship it plans.", game: "The real thing", lab: "Your portfolio piece", page: "cap/" }
 };
