@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5 Prototyping with AI | AI Gym</title>
+<meta name="description" content="Prototyping with AI for product managers: from spec to clickable prototype, vibe-coding tools and their risks, and prototypes for learning. Three lessons, a hands-on lab, two real cases and the Prototype Sprint game.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/station.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='12' width='28' height='4' rx='2' fill='%238A939D'/%3E%3Crect x='5' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3Crect x='18' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3C/svg%3E">
+<style>
+  .ladder { display: grid; gap: 6px; margin: 8px 0 12px; max-width: 700px; }
+  .ladder div { display: flex; gap: 12px; align-items: baseline; padding: 9px 14px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--ground); font-size: 15px; }
+  .ladder div b { flex: none; width: 150px; color: var(--petrol); }
+</style>
+</head>
+<body data-station="a5">
+
+<div class="hero-band">
+<header class="wrap top">
+  <a class="brand" href="../">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="0" y="12" width="28" height="4" rx="2" fill="#8A939D"/><rect x="5" y="3" width="5" height="22" rx="1.5" fill="#155E63"/><rect x="18" y="3" width="5" height="22" rx="1.5" fill="#155E63"/></svg>
+    AI Gym
+  </a>
+  <nav aria-label="Main">
+    <a href="../#floor">Gym floor</a>
+    <a href="../#session">The session</a>
+    <a href="../#rack">Playground</a>
+    <a href="../#toolbox">Toolbox</a>
+    <span class="links">
+      <a class="btn sm" href="https://pmgym.netlify.app/">PM Gym</a>
+      <a class="btn sm" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+      <a class="btn sm" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+      <a class="btn sm solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+    </span>
+  </nav>
+</header>
+<section class="wrap" style="padding-block: 8px 40px">
+  <div class="crumbs"><a href="../#floor">Gym floor</a> / Zone 3, Build / A5</div>
+  <div class="title">
+    <svg class="plate-badge" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#4C7BD9"/><circle cx="28" cy="28" r="20" fill="none" stroke="#17202A" stroke-opacity=".22" stroke-width="2"/><text x="28" y="34" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="17" fill="#17202A">A5</text></svg>
+    <div>
+      <span class="zone-tag"><i style="background:#4C7BD9"></i>Zone 3, Build</span>
+      <h1>Prototyping with AI</h1>
+      <p>Turn an AI idea into a working prototype in an afternoon, keep it safe, and use it to learn, not to ship. Then build one and test it with people.</p>
+    </div>
+  </div>
+  <div class="meta"><span>3 lessons</span><span>Lab, about 45 min plus tests</span><span>2 cases</span><span>Game: Prototype Sprint</span><span id="lprog">0 of 3 lessons done</span></div>
+</section>
+</div>
+
+<nav class="stepnav" aria-label="Session steps"><div class="wrap" id="stepnav"></div></nav>
+
+<main class="wrap">
+
+  <section id="warmup" class="block">
+    <h2>Warm-up <span class="tag">Optional, 3 minutes</span></h2>
+    <p>Make three quick predictions before the lessons, and say how sure you are. You'll see how you did at the end. <a href="#lessons">Skip to the lessons</a></p>
+    <div class="wu">
+      <div class="story">
+        <small>The situation</small>
+        <p>Ledgerly's team argues for weeks about "Cash Coach", an AI that answers questions about upcoming income. Nobody has seen it work. You have one week.</p>
+        <div class="quote">"Stop writing specs about it. Show me something I can click by Friday."</div>
+        <p class="science">Why predict first? Trying a question before the lesson makes the lesson stick better, even when the first guess is wrong. Rating your confidence trains you to notice what you don't know yet.</p>
+      </div>
+      <div id="warmup-ui"></div>
+    </div>
+    <script type="application/json" id="warmup-config">{"questions": [{"q": "What's the fastest way to learn if an AI feature is useful?", "o": ["A survey", "A working prototype with a real model and realistic inputs", "A longer specification"], "a": 1, "why": "AI output varies; you have to see it. Lesson 1 has the prototype ladder."}, {"q": "What's the biggest hidden risk in a vibe-coded app?", "o": ["Missing security, such as who can read the data", "The colours", "It's too fast"], "a": 0, "why": "Prototypes look finished and often aren't secure. Lesson 2 has a real example."}, {"q": "Your prototype test went well. What happens to the prototype code?", "o": ["Ship it as it is", "Keep adding features to it", "Engineers rebuild it properly; you hand over the learnings"], "a": 2, "why": "Prototypes are for learning. Lesson 3 covers the hand-off."}]}</script>
+  </section>
+
+  <section id="lessons" class="block">
+    <h2>Lessons</h2>
+    <p>Three short lessons. Each runs the same way: the idea, the framework, a real example, where it breaks, and a quick drill.</p>
+    <div class="lessons">
+<details class="lesson" data-lesson="1"><summary><span class="ln">1</span><span class="lt"><b>From spec to clickable prototype</b><span>For AI features, a working prototype answers questions a document can't.</span></span><span class="lmin">8 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>You can write down a button's behaviour. You can't write down an AI feature's behaviour, because the output changes with every input. The fastest way to know whether an AI feature is useful is to use it: real model, realistic inputs, a screen people can touch.</p><p>That's now cheap. With vibe-coding tools, a PM can turn a description into a working web app in an afternoon, often without writing code.</p></div><div class="part"><h4>The framework</h4><p><b>The prototype ladder.</b> Climb only as high as your question needs:</p><div class="ladder"><div><b>1. Wizard of Oz</b>A person writes the "AI" answers by hand. Tests the need.</div><div><b>2. Playground</b>The real prompt and model on 20 inputs. Tests quality.</div><div><b>3. Clickable app</b>A vibe-coded screen with a real model and sample data. Tests the experience.</div><div><b>4. Pilot</b>Engineered, with real data, for a few users. Tests value in daily use.</div></div><p>Start every prototype by writing the one question it must answer.</p></div><div class="part"><h4>Real example</h4><p>In April 2025, Shopify CEO Tobi Lütke made AI use a baseline expectation for all staff in an internal memo he later shared publicly. One rule: the prototype phase of every project should be dominated by AI exploration, because prototypes are for learning and AI speeds that up dramatically.</p><p>Source: Lütke's memo, posted on X on 7 April 2025 and reported widely, for example by Digital Commerce 360.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>A demo isn't evidence.</b> A prototype that works on your three examples tells you little. Test on messy, realistic inputs.</li><li><b>Prototypes create false certainty.</b> Stakeholders see a working screen and assume it's nearly done. Label it clearly.</li><li><b>The wrong rung wastes the week.</b> Building an app to test whether anyone needs the feature is slower than a Wizard of Oz test.</li></ul></div><div class="part drill"><h4>Drill: Pick the rung</h4><div class="check stack" data-answer="0"><p class="cq">You don't yet know whether freelancers even want answers about future income. What's the cheapest test?</p><div class="opts"><button type="button" class="opt">Wizard of Oz: answer five testers' questions yourself, by hand</button><button type="button" class="opt">A full vibe-coded app with a real model</button><button type="button" class="opt">A two-month pilot</button></div><p class="cfb" data-ok="Right. Test the need before the technology." data-no="Wizard of Oz. If nobody wants the answers, it doesn't matter how good the AI is."></p></div></div></div></details>
+<details class="lesson" data-lesson="2"><summary><span class="ln">2</span><span class="lt"><b>Vibe-coding tools, and where they break</b><span>Fast to build, easy to ship by mistake.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>Andrej Karpathy named "vibe coding" in a post on 2 February 2025: describing what you want, accepting what the AI writes, and barely looking at the code. By November 2025, Collins Dictionary had made it its word of the year.</p><p>Today's tools fall into two groups. <b>App builders</b> (Google AI Studio's Build mode, Lovable, Bolt, v0, Replit) go from a description to a running web app. <b>Coding agents</b> (Cursor, Claude Code and others) work inside a real codebase with an engineer.</p></div><div class="part"><h4>The framework</h4><p><b>Prototype rules</b> that keep vibe coding safe:</p><ol><li><b>Fake data only.</b> No real customer data, ever.</li><li><b>No real secrets.</b> No production API keys or passwords pasted into the tool.</li><li><b>Private by default.</b> Share links with testers, not the internet.</li><li><b>Labelled.</b> "Prototype, sample data" visible on screen.</li><li><b>Thrown away.</b> Engineers rebuild for production from the learnings.</li></ol><p>Simon Willison draws the useful line: vibe coding means building with AI without reviewing the code. That's fine for prototypes and personal tools, not for software other people depend on.</p></div><div class="part"><h4>Real example</h4><p>In 2025, a researcher scanned 1,645 apps from Lovable's public showcase and found 170 of them, about 10%, whose databases anyone could read or write without logging in: names, emails, payment details and API keys. The cause was missing access rules (row-level security) in the generated projects. It was logged as CVE-2025-48757, and Lovable added a security scan to its platform.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Security is invisible in a demo.</b> The app looks finished; the access rules may not exist.</li><li><b>Complexity hides.</b> Each new feature makes the generated code harder for the AI, and for people, to change safely.</li><li><b>Free tiers have terms.</b> Some tools may use what you type to improve their products. Read them before pasting anything.</li></ul></div><div class="part drill"><h4>Drill: Spot the risk</h4><div class="check stack" data-answer="2"><p class="cq">A colleague's vibe-coded prototype works great, so they want to share the public link with 200 customers using their real invoices. What's the main problem?</p><div class="opts"><button type="button" class="opt">The design isn't on-brand yet</button><button type="button" class="opt">It might be slow</button><button type="button" class="opt">Nobody has checked who can read the data; real customer data in a prototype can leak</button></div><p class="cfb" data-ok="Right. Prototypes skip security; real data turns a prototype into a liability." data-no="Data exposure. Prototype code often lacks access rules, so real customer data can leak."></p></div></div></div></details>
+<details class="lesson" data-lesson="3"><summary><span class="ln">3</span><span class="lt"><b>Prototypes for learning, not shipping</b><span>Decide the question, test with people, keep the knowledge.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>A prototype is an experiment. Its output isn't code, it's an answer: is this useful, can people use it, and do they trust it? Everything you build should serve that answer.</p><p>For AI features, three questions matter most: <b>Value</b> (do people want these answers?), <b>Quality</b> (are the answers good on real-looking inputs?) and <b>Trust</b> (do people notice and recover when it's wrong?).</p></div><div class="part"><h4>The framework</h4><p><b>The one-page prototype brief:</b></p><ol><li><b>The question:</b> one sentence. "Will freelancers use AI answers about future income to make spending decisions?"</li><li><b>Build, fake, skip:</b> list every part and decide. Build only what the question needs.</li><li><b>Test script:</b> five tasks for five testers, including one where the AI is wrong.</li><li><b>Decision rule:</b> what result means go, change or stop. Write it before testing.</li><li><b>Hand-off:</b> the prompt, the test set and the learnings, not the code.</li></ol></div><div class="part"><h4>Real example</h4><p>An old lesson that still applies: before Zappos built warehouses, founder Nick Swinmurn tested whether people would buy shoes online by photographing shoes in local stores, posting them online, and buying them at full price when an order came in. The back end was entirely faked; the question (will people buy shoes online?) was answered for real (Swinmurn, interviewed by Fortune, 2012).</p><p>AI prototypes work the same way: fake everything except the part you're unsure about.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Testing with colleagues</b> tells you what colleagues think. Recruit people who match your users.</li><li><b>"Would you use this?"</b> gets polite yeses. Watch what they do, and offer a real choice (a price, a sign-up).</li><li><b>Shipping the prototype</b> is the classic trap: it skips security, tests and maintainability.</li></ul></div><div class="part drill"><h4>Drill: Write the decision rule</h4><div class="check stack" data-answer="1"><p class="cq">Before testing Cash Coach with five freelancers, what should you write down?</p><div class="opts"><button type="button" class="opt">The colour scheme</button><button type="button" class="opt">What result means go, change or stop</button><button type="button" class="opt">The production architecture</button></div><p class="cfb" data-ok="Right. Decide what counts as success before you see the results." data-no="The decision rule. Otherwise every result looks like encouragement."></p></div></div></div></details>
+    </div>
+  </section>
+
+  <section id="lab" class="block">
+    <h2>Lab: Build a working AI prototype <span class="tag">About 45 minutes, plus test sessions</span></h2>
+    <p>Write a one-page brief, build a working Ledgerly prototype with a real model and made-up data, then test it with people. Your ticks and notes stay in this browser.</p>
+    <div id="lab-ui"></div>
+    <script type="application/json" id="lab-config">{"needs": ["Google AI Studio (free, Build mode). Lovable, Bolt or a Claude or ChatGPT canvas also work.", "Made-up data only. Never paste real customer data or real API keys into a prototype tool.", "Two or three people who match your users, for 15 minutes each."], "parts": [{"title": "Write the brief first", "tool": "Your notes", "url": "", "time": "10 min", "goal": "Know exactly what this prototype must teach you before you build anything.", "steps": ["Write the question in one sentence. For the sample: \"Will freelancers trust and use AI answers about their upcoming income?\"", "List the parts (data, answers, chart, accounts, bank connection, mobile, pricing) and mark each build, fake or skip.", "Write the decision rule. For example: go if 3 of 5 testers use an answer to make a decision and catch the planted error."], "see": "A half-page brief with one question, a build/fake/skip list and a decision rule. If you can't write the question in one sentence, the prototype isn't ready to build.", "tip": "Stuck on the question? Ask: what would change our plan if we learned it this week?", "checks": ["I wrote the one-sentence question", "I wrote a go, change or stop rule"]}, {"title": "Build it", "tool": "Google AI Studio, Build mode", "url": "https://aistudio.google.com/", "time": "25 min", "goal": "Get a working, clickable prototype with a real model behind it.", "steps": ["Open Google AI Studio and choose Build in the left menu.", {"t": "Paste this description and let it build:", "copy": "Build a one-screen web app called \"Ledgerly Cash Coach\" for a freelancer.\n\nData: use these made-up invoices (client, amount in EUR, due date, status):\nStudio Nord, 1250, 2026-11-20, unpaid\nBrightline GmbH, 3400, 2026-11-05, overdue\nCafé Lumen, 480, 2026-11-28, unpaid\nAtlas Legal, 2100, 2026-12-10, unpaid\nNordwind AG, 900, 2026-10-30, paid\nMara Studio, 650, 2026-12-15, unpaid\nBrightline GmbH, 1700, 2026-12-20, unpaid\nKiosk Verlag, 300, 2026-11-12, overdue\n\nTop of the screen: total expected income for the next 60 days and a simple bar chart by week.\nBelow: a chat box. When the user asks a question (for example \"Which clients are late?\" or \"Can I afford a 2,000 euro laptop this month?\"), answer with Gemini using ONLY the invoice data, in 2 to 4 sentences, and list the invoices each answer is based on underneath it.\nIf the data can't answer the question, say so.\nShow a visible banner: \"Prototype - sample data only\"."}, "Ask it five questions, including one the data can't answer (\"What's my tax bill?\"). Check that answers list their invoices.", "Fix one thing at a time with follow-up messages or annotation mode (select part of the screen and describe the change). Stop when it answers the brief's question; don't polish."], "see": "A one-screen app with a chart and a chat box, giving short answers with the invoices listed beneath. It may make a mistake on a sum. That's useful: note it for the test.", "tip": "If the build fails or looks wrong, describe the problem in plain words (\"The chart shows months, I want weeks\"). If you hit a free-tier limit, wait or try Claude or ChatGPT's canvas with the same description.", "checks": ["My prototype answers questions from the sample data", "It says so when the data can't answer", "It shows a prototype banner"]}, {"title": "Test it with people", "tool": "Your prototype + a call or a desk", "url": "", "time": "15 min per tester", "goal": "Learn whether people find it useful, can use it, and notice when it's wrong.", "steps": [{"t": "Run this script with two or three testers:", "copy": "Intro: \"This is an early prototype with made-up data. Please think out loud; there are no wrong answers.\"\nTask 1: \"Find out how much money you can expect in the next month.\"\nTask 2: \"Ask which clients are late, and decide who you'd chase first.\"\nTask 3: \"Ask whether you can afford a 2,000 euro laptop this month. Would you trust the answer?\"\nTask 4 (planted error): before this task, change one invoice amount in the data so one answer is wrong. \"Ask how much Brightline owes you.\" Do they notice?\nClose: \"Would you use this? What would make you trust it more?\""}, "Write down what they did, not what they said: which answers they used, where they hesitated, whether they caught the error.", "Apply your decision rule: go, change or stop."], "see": "A few clear patterns: which questions people actually ask, whether the cited invoices build trust, and whether anyone spots the planted error. Usually fewer people catch it than you'd expect.", "tip": "Testers keep praising it? Ask \"What would stop you from using this?\" and watch for the moment they hesitate.", "checks": ["I tested with at least two people", "I applied my decision rule"]}], "card": {"title": "My prototype test", "intro": "The learning, not the code. This is what you'd hand to engineering, and what you'll reuse in the capstone.", "fields": [{"id": "q", "label": "The question my prototype answered", "ph": "", "long": true}, {"id": "tool", "label": "Tool I used", "ph": "For example: Google AI Studio Build"}, {"id": "error", "label": "Did testers catch the planted error?", "ph": "For example: 1 of 3"}, {"id": "decision", "label": "Decision: go, change or stop, and why", "ph": "", "long": true}]}}</script>
+  </section>
+
+  <section id="cases" class="block">
+    <h2>Cases</h2>
+    <p>One company that made AI prototyping the default way to learn, and one platform where prototypes became production apps with open databases.</p>
+    <div class="cases">
+      <div class="case" style="border-color: var(--green)"><small style="color: var(--green)">Got it right</small><h3>Shopify's prototype rule</h3><p>In April 2025, Shopify CEO Tobi Lütke told staff in a memo, later posted publicly, that reflexive AI use was now a baseline expectation. Among its rules: the prototype phase of every project should be dominated by AI exploration, because prototypes are for learning and creating information, and AI accelerates that. AI use was also added to performance and peer reviews.</p><p class="take">Make AI prototyping the normal way to learn early, and keep it pointed at learning.</p></div>
+      <div class="case" style="border-color: var(--red)"><small style="color: var(--red-text)">Got it wrong</small><h3>Vibe-coded apps with open databases</h3><p>In 2025, researcher Matt Palmer scanned 1,645 apps from Lovable's public showcase and found 170 (about 10%) where anyone could read or write data without logging in. Exposed data included emails, phone numbers, payment status and API keys. The cause was missing access rules in the generated databases; it was logged as CVE-2025-48757, and Lovable added a security scan before publishing.</p><p class="take">A prototype that looks finished isn't secure. Keep real data out, and rebuild properly before anything goes live.</p></div>
+    </div>
+  </section>
+
+  <section id="game" class="block">
+    <h2>Game: Prototype Sprint</h2>
+    <p>One week to test Ledgerly's "Cash Coach" idea. For each part, decide whether to build it, fake it or skip it, then make the call that keeps the test honest. About 10 minutes. <a href="../games/prototype-sprint/">Open it on its own page</a> to share.</p>
+    <div id="gamebox" style="margin-top: 24px"></div>
+  </section>
+
+  <section id="apply" class="block">
+    <h2>Ship it: your prototype brief</h2>
+    <p>Write the brief for a prototype of an AI idea in your own product. Your answers stay in this browser.</p>
+    <div class="builder" id="builder"></div>
+    <script type="application/json" id="apply-config">{"title": "Prototype brief", "sentence": "{idea}: {question}", "rows": [{"label": "Rung", "text": "{rung}"}, {"label": "Build for real", "text": "{build}"}, {"label": "Fake or skip", "text": "{fake}"}, {"label": "Decision rule", "text": "{rule}"}, {"label": "Hand-off", "text": "{handoff}"}], "fields": [{"id": "idea", "label": "The AI idea", "placeholder": "For example: AI summaries of client email threads", "blank": "Your AI idea"}, {"id": "question", "label": "The one question this prototype must answer", "placeholder": "For example: will account managers trust the summary enough to skip reading the thread?", "blank": "the question"}, {"id": "rung", "label": "Which rung of the ladder?", "placeholder": "Tap one or describe it", "blank": "rung", "chips": ["1. Wizard of Oz", "2. Playground with real prompts", "3. Clickable app, sample data", "4. Pilot with real users"]}, {"id": "build", "label": "What you'll build for real", "placeholder": "For example: the summary, from a real model on 20 realistic threads", "blank": "what's real"}, {"id": "fake", "label": "What you'll fake or skip", "placeholder": "For example: logins, the email integration, mobile", "blank": "what's faked"}, {"id": "rule", "label": "Go, change or stop rule", "placeholder": "For example: go if 4 of 5 testers act on the summary without opening the thread", "blank": "a decision rule"}, {"id": "handoff", "label": "What you'll hand to engineering", "placeholder": "Tap one or describe it", "blank": "hand-off", "chips": ["The prompt, test set and learnings", "Recordings and notes from tests", "A reference screen, not the code"]}]}</script>
+    <details class="reveal">
+      <summary>Show a worked example</summary>
+      <div class="model">
+        <p><b>Idea:</b> Ledgerly Cash Coach. <b>Question:</b> will freelancers trust and act on AI answers about their upcoming income?</p>
+        <p><b>Rung 3:</b> a clickable app built in Google AI Studio with a real model and eight made-up invoices. <b>Built:</b> the answers (with source invoices listed) and the chat screen. <b>Faked or skipped:</b> bank connection (sample data), accounts, mobile, pricing (a fake "Start trial" button at the end).</p>
+        <p><b>Decision rule:</b> go if 3 of 5 testers use an answer to make a decision and at least 3 catch the planted wrong number; change if they use it but miss the error (trust design needed); stop if they don't use the answers. <b>Hand-off:</b> the prompt, the 15 test questions and the session notes.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="check" class="block" style="border-bottom: 0">
+    <h2>Mastery check</h2>
+    <p>Five questions, one at a time. Two come back from earlier stations. Then explain the idea in your own words.</p>
+    <div class="mastery" id="mastery">
+<div class="check stack" data-answer="2"><p class="cq">What should a prototype's brief start with?</p><div class="opts"><button type="button" class="opt">The tech stack</button><button type="button" class="opt">The screens</button><button type="button" class="opt">The one question it must answer</button></div><p class="cfb" data-ok="Right. The question decides everything you build, fake or skip." data-no="The question. It decides what to build, fake or skip."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">Why use made-up data in an AI prototype?</p><div class="opts"><button type="button" class="opt">Prototypes skip security, and real data could leak; realistic fake data tests quality safely</button><button type="button" class="opt">Real data makes the AI worse</button><button type="button" class="opt">Tools don't accept real data</button></div><p class="cfb" data-ok="Right. Fake data keeps the test useful and the risk at zero." data-no="Prototypes skip security. Realistic fake data tests quality without risking real people's data."></p></div>
+<div class="check stack" data-answer="1"><p class="cq">Your prototype test went well. What do you hand to engineering?</p><div class="opts"><button type="button" class="opt">The prototype code to ship</button><button type="button" class="opt">The prompt, test set and learnings</button><button type="button" class="opt">Nothing; they'll start fresh</button></div><p class="cfb" data-ok="Right. The knowledge transfers; the prototype code shouldn't ship." data-no="The prompt, test set and learnings. Prototype code isn't built for production."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">From A3: you changed three things in a prompt and the score went up. What did you learn?</p><div class="opts"><button type="button" class="opt">Little: you can't tell which change helped</button><button type="button" class="opt">All three helped</button><button type="button" class="opt">It's ready to ship</button></div><p class="cfb" data-ok="Right. One change at a time." data-no="Little. Change one thing at a time."></p></div>
+<div class="check stack" data-answer="1"><p class="cq">From A2: which idea is the best fit for full automation?</p><div class="opts"><button type="button" class="opt">Sending legal notices to clients</button><button type="button" class="opt">Sorting expenses into categories, where mistakes are cheap and easy to fix</button><button type="button" class="opt">Approving loans</button></div><p class="cfb" data-ok="Right. Cheap, visible, reversible mistakes." data-no="Expense categories. Mistakes are cheap and easy to undo."></p></div>
+      <p class="mscore" id="mscore" aria-live="polite"></p>
+    </div>
+    <div class="teach-grid one" id="teach-ui"></div>
+    <script type="application/json" id="teach-config">{"prompt": "Your engineer worries that PMs vibe coding prototypes will create a mess. In 280 characters or fewer, explain how you'd do it responsibly.", "checks": [{"k": "learn|question|test", "label": "Prototypes are for learning"}, {"k": "fake|sample|made.up|no real", "label": "Fake data only"}, {"k": "throw|rebuild|not ship|never ship|production", "label": "Not shipped as is"}, {"k": "secur|secret|key|private", "label": "Mentions security or privacy"}, {"k": "hand|prompt|learning|share", "label": "Hands over the learnings"}], "model": "Prototypes answer one question, with sample data only, no real keys, private links and a clear label. We never ship them: you get the prompt, the test set and what users did, and rebuild it properly with less guesswork."}</script>
+    <div class="takeaways">
+      <h3>Key takeaways</h3>
+      <ol>
+        <li><b>For AI features, a working prototype beats a spec.</b> Climb the ladder only as high as your question needs: Wizard of Oz, playground, clickable app, pilot.</li>
+        <li><b>Vibe coding is fast and unsafe by default.</b> Fake data, no real secrets, private links, a visible label.</li>
+        <li><b>Prototypes are experiments.</b> One question, build only what it needs, test with real users, and decide by a rule you wrote first.</li>
+        <li><b>Hand over the knowledge, not the code.</b> The prompt, the test set and the learnings make the real build faster.</li>
+      </ol>
+    </div>
+    <div class="shelf-x"><h3>Expert shelf</h3><p>The best free material on this topic, picked so you can go deeper. Each one is from the people who know it best.</p><div class="xs"><a class="xr" href="https://ai.google.dev/gemini-api/docs/aistudio-build-mode" target="_blank" rel="noopener"><span class="xk"><span>Docs</span><span class="t">15 min</span></span><b>Build apps in Google AI Studio</b><span class="who">Google</span><p>How Build mode works: prompts, annotation mode and sharing. The free tool used in the lab.</p></a><a class="xr" href="https://simonwillison.net/2025/Mar/19/vibe-coding/" target="_blank" rel="noopener"><span class="xk"><span>Article</span><span class="t">10 min</span></span><b>Not all AI-assisted programming is vibe coding</b><span class="who">Simon Willison, March 2025</span><p>The clearest line between vibe coding and responsible AI-assisted building.</p></a><a class="xr" href="https://x.com/karpathy/status/1886192184808149383" target="_blank" rel="noopener"><span class="xk"><span>Post</span><span class="t">2 min</span></span><b>The original "vibe coding" post</b><span class="who">Andrej Karpathy, February 2025</span><p>Where the term came from, and what he actually meant: throwaway weekend projects.</p></a><a class="xr" href="https://maven.com/p/30546f" target="_blank" rel="noopener"><span class="xk"><span>Class</span><span class="t">45 min</span></span><b>AI Prototyping for Product Managers (free lightning lesson)</b><span class="who">Colin Matthews, on Maven</span><p>A free live or recorded session on building a functional prototype in minutes, from a PM who teaches it.</p></a></div></div>
+  </section>
+</main>
+
+<div class="wrap" style="border-top: 1px solid var(--line)">
+  <div class="pager"><a href="../a4/">Previous: A4 Context engineering and RAG</a><a href="../#floor">Next: A6 Agents, tools and MCP (opening soon)</a></div>
+</div>
+
+<footer class="wrap site">
+  <span>AI Gym by Dhaval Kareliya. Free, hands-on AI practice for product managers.</span>
+  <span class="links">
+    <a class="btn" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+    <a class="btn" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+    <a class="btn solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+  </span>
+</footer>
+
+<script src="../assets/progress.js"></script>
+<script src="../assets/station.js"></script>
+<script src="../assets/game-engine.js"></script>
+<script src="../assets/prototype-sprint.js"></script>
+<script>PrototypeSprint(document.getElementById("gamebox"));</script>
+</body>
+</html>
