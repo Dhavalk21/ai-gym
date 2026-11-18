@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capstone: ship an AI feature end to end | AI Gym</title>
+<meta name="description" content="The AI Gym capstone: ship one AI feature end to end, from problem and spec to prototype, evals, guardrails, cost model and launch plan, and collect your lab cards into one portfolio piece.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/station.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='12' width='28' height='4' rx='2' fill='%238A939D'/%3E%3Crect x='5' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3Crect x='18' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3C/svg%3E">
+<style>
+  .cap-steps { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+  .cap-steps li { display: grid; grid-template-columns: 28px 1fr; gap: 6px 12px; align-items: start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+  .cap-steps input[type=checkbox] { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--petrol); }
+  .cap-steps b { font-size: 17px; }
+  .cap-steps .from { color: var(--ink-3); font-size: 14px; margin-left: 6px; }
+  .cap-steps p { margin: 2px 0 6px; color: var(--ink-2); font-size: 15px; }
+  .cap-steps textarea { grid-column: 2; width: 100%; min-height: 44px; font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; resize: vertical; }
+  .cap-meter { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .cap-meter .mp-bar { flex: 1; max-width: 360px; }
+  .pf { display: grid; gap: 12px; margin-top: 16px; }
+  .pf-card { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: #fff; }
+  .pf-card h3 { margin: 0 0 2px; font-size: 18px; }
+  .pf-card .pf-sub { color: var(--ink-3); font-size: 14px; margin: 0 0 8px; }
+  .pf-card dl { margin: 0; display: grid; grid-template-columns: minmax(140px, 220px) 1fr; gap: 4px 14px; font-size: 15px; }
+  .pf-card dt { color: var(--ink-2); }
+  .pf-card dd { margin: 0; white-space: pre-wrap; }
+  .pf-card .empty { color: var(--ink-3); font-style: italic; }
+  .pf-card.blank { background: transparent; }
+  .cap-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 16px; }
+  .rubric { margin: 12px 0 0; padding-left: 20px; }
+  .takeaways li { opacity: 1; transform: none; }
+  .takeaways a { color: #fff; }
+  .rubric li { margin: 6px 0; }
+  @media (max-width: 640px) { .pf-card dl { grid-template-columns: 1fr; } .pf-card dt { margin-top: 6px; } }
+  @media print {
+    .hero-band, .stepnav, .pager, footer.site, .cap-actions, #brief .cap-steps input, .no-print { display: none !important; }
+    .pf-card, .cap-steps li { break-inside: avoid; border-color: #999; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body data-station="cap">
+
+<div class="hero-band">
+<header class="wrap top">
+  <a class="brand" href="../">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="0" y="12" width="28" height="4" rx="2" fill="#8A939D"/><rect x="5" y="3" width="5" height="22" rx="1.5" fill="#155E63"/><rect x="18" y="3" width="5" height="22" rx="1.5" fill="#155E63"/></svg>
+    AI Gym
+  </a>
+  <nav aria-label="Main">
+    <a href="../#floor">Gym floor</a>
+    <a href="../#session">The session</a>
+    <a href="../#rack">Playground</a>
+    <a href="../#toolbox">Toolbox</a>
+    <span class="links">
+      <a class="btn sm" href="https://pmgym.netlify.app/">PM Gym</a>
+      <a class="btn sm" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+      <a class="btn sm" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+      <a class="btn sm solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+    </span>
+  </nav>
+</header>
+<section class="wrap" style="padding-block: 8px 40px">
+  <div class="crumbs"><a href="../#floor">Gym floor</a> / Zone 6, Lead / Capstone</div>
+  <div class="title">
+    <svg class="plate-badge" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#D07A45"/><circle cx="28" cy="28" r="20" fill="none" stroke="#17202A" stroke-opacity=".22" stroke-width="2"/><text x="28" y="34" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="14" fill="#17202A">CAP</text></svg>
+    <div>
+      <span class="zone-tag"><i style="background:#D07A45"></i>Capstone, the final station</span>
+      <h1>Ship an AI feature end to end</h1>
+      <p>Take one AI feature from problem to launch plan, using everything from the gym. Your lab cards are already most of the work: this page gathers them into one portfolio piece you can share, present in an interview, or bring to your team.</p>
+    </div>
+  </div>
+  <div class="meta"><span>9 deliverables</span><span>About 3 to 5 hours, over a week or two</span><span>Your own feature, or Ledgerly's</span></div>
+</section>
+</div>
+
+<main class="wrap">
+
+  <section id="brief" class="block">
+    <h2>The brief</h2>
+    <p>Pick <b>one AI feature</b>: ideally a real one from your own product, or Ledgerly's AI help assistant if you'd rather practise. Then work through the nine deliverables. Each builds on a station you've done; follow the link back if you need a refresher. Your ticks and notes stay in this browser.</p>
+    <div class="cap-meter"><b id="capn">0 of 9 done</b><div class="mp-bar"><i id="capbar"></i></div></div>
+    <ol class="cap-steps">
+<li><input type="checkbox" data-cd="fit" aria-label="Problem and fit done"><div><b>1. Problem and fit</b><span class="from">from A2</span><p>Who the user is, the job, what it costs today, and why AI (not a rule or a form).</p></div><textarea data-cn="fit" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="spec" aria-label="AI spec with acceptance criteria done"><div><b>2. AI spec with acceptance criteria</b><span class="from">from A12</span><p>Examples, golden-set pass rates, zero-tolerance failures, cost and latency limits.</p></div><textarea data-cn="spec" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="proto" aria-label="A clickable prototype done"><div><b>3. A clickable prototype</b><span class="from">from A5</span><p>A link to a working prototype, tested with at least two people.</p></div><textarea data-cn="proto" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="eval" aria-label="A 20-case eval, with a tested judge done"><div><b>4. A 20-case eval, with a tested judge</b><span class="from">from A7</span><p>Your golden set, results per failure type, and the judge's catch rate.</p></div><textarea data-cn="eval" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="guard" aria-label="Guardrail and monitoring plan done"><div><b>5. Guardrail and monitoring plan</b><span class="from">from A8</span><p>Trifecta check, hallucination and injection controls, what you'll monitor.</p></div><textarea data-cn="guard" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="trust" aria-label="Trust design done"><div><b>6. Trust design</b><span class="from">from A9</span><p>Autonomy level, how users know what to check, and how they correct or undo.</p></div><textarea data-cn="trust" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="cost" aria-label="Cost model and pricing done"><div><b>7. Cost model and pricing</b><span class="from">from A10</span><p>Cost per task and per user, the levers you'll use, and protection from heavy users.</p></div><textarea data-cn="cost" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="comply" aria-label="Compliance check done"><div><b>8. Compliance check</b><span class="from">from A11</span><p>Risk tier, your role, GDPR points and the one-line AI disclosure.</p></div><textarea data-cn="comply" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+<li><input type="checkbox" data-cd="launch" aria-label="Launch plan and metric done"><div><b>9. Launch plan and metric</b><span class="from">from A12</span><p>Rollout stages, primary outcome metric, guardrail metrics and kill switch.</p></div><textarea data-cn="launch" rows="2" placeholder="Link or a one-line summary"></textarea></li>
+    </ol>
+  </section>
+
+  <section id="portfolio" class="block">
+    <h2>Your portfolio so far</h2>
+    <p>Everything you've written in lab cards and "Ship it" cards across the gym, gathered from this browser. Empty cards link back to their station. Copy it as Markdown to paste into a doc, or save it as a PDF.</p>
+    <div class="cap-actions">
+      <button type="button" class="btn solid" id="capcopy">Copy as Markdown</button>
+      <button type="button" class="btn" id="capprint">Save as PDF</button>
+      <span class="copied" id="capmsg" aria-live="polite"></span>
+    </div>
+    <div class="pf" id="pf"><p class="empty">Gathering your cards...</p></div>
+  </section>
+
+  <section id="review" class="block" style="border-bottom: 0">
+    <h2>Review it like a hiring manager</h2>
+    <p>Before you share it, check your capstone against these five questions. They're the ones experienced AI product leaders ask.</p>
+    <ol class="rubric">
+      <li><b>Is the problem worth solving with AI?</b> A real user, a real cost today, and a clear reason a rule or a form wouldn't do.</li>
+      <li><b>Is "good" defined before it was built?</b> Examples, a golden set and pass rates per failure type, including zero-tolerance ones.</li>
+      <li><b>Is the evidence real?</b> Eval results, a judge with a measured catch rate, and a prototype people actually tried.</li>
+      <li><b>Are risk, trust and cost handled?</b> Guardrails, the right autonomy level, a cost per task that leaves a margin, and the compliance basics.</li>
+      <li><b>Can the launch be measured and stopped?</b> Stages, an outcome metric, guardrail metrics and a kill switch.</li>
+    </ol>
+    <div class="cap-actions">
+      <button type="button" class="btn solid" id="capdone">Mark the capstone complete</button>
+      <span class="copied" id="capdmsg" aria-live="polite"></span>
+    </div>
+    <div class="takeaways">
+      <h3>Where to next</h3>
+      <ol>
+        <li><span><b>Ship it for real.</b> Bring your spec and eval to your team; offer to own the golden set.</span></li>
+        <li><span><b>Keep a practice habit.</b> Replay the games, and revisit the expert shelves as the field moves.</span></li>
+        <li><span><b>Talk it through.</b> Want feedback on your capstone or your AI product work? <a href="https://topmate.io/dhaval_kareliya">Book a session</a>.</span></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<div class="wrap" style="border-top: 1px solid var(--line)">
+  <div class="pager"><a href="../a12/">Previous: A12 The AI-native PM</a><a href="../#floor">Back to the gym floor</a></div>
+</div>
+
+<footer class="wrap site">
+  <span>AI Gym by Dhaval Kareliya. Free, hands-on AI practice for product managers.</span>
+  <span class="links">
+    <a class="btn" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+    <a class="btn" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+    <a class="btn solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+  </span>
+</footer>
+
+<script src="../assets/progress.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var PR = window.AIGYM_PROGRESS; if (PR) PR.visit("CAP");
+  var KEYS = ["fit", "spec", "proto", "eval", "guard", "trust", "cost", "comply", "launch"], ST = ["a0", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12"], ck = "aigym-cap-lab", cap = store.get(ck) || { done: {}, card: {} };
+
+  function paint() {
+    var n = KEYS.filter(function (k) { return cap.done[k]; }).length;
+    $("capn").textContent = n + " of " + KEYS.length + " done";
+    $("capbar").style.width = Math.round(n / KEYS.length * 100) + "%";
+  }
+  document.querySelectorAll("[data-cd]").forEach(function (c) {
+    c.checked = !!cap.done[c.dataset.cd];
+    c.onchange = function () { cap.done[c.dataset.cd] = c.checked; store.set(ck, cap); paint(); };
+  });
+  document.querySelectorAll("[data-cn]").forEach(function (t) {
+    t.value = cap.card[t.dataset.cn] || "";
+    t.addEventListener("input", function () { cap.card[t.dataset.cn] = t.value; store.set(ck, cap); });
+  });
+  paint();
+
+  var cards = [];
+  function readCfg(doc, id) { var el = doc.getElementById(id); try { return el ? JSON.parse(el.textContent) : null; } catch (e) { return null; } }
+  Promise.all(ST.map(function (s) {
+    return fetch("../" + s + "/").then(function (r) { return r.ok ? r.text() : ""; }).then(function (html) {
+      var doc = new DOMParser().parseFromString(html, "text/html"), out = [];
+      var name = (doc.querySelector("h1") || {}).textContent || s.toUpperCase();
+      var lab = readCfg(doc, "lab-config"), lb = store.get("aigym-" + s + "-lab") || {};
+      if (lab && lab.card) out.push({ st: s, name: name, title: lab.card.title, kind: "Lab card", rows: lab.card.fields.map(function (f) { return [f.label, (lb.card || {})[f.id] || ""]; }) });
+      var ap = readCfg(doc, "apply-config"), av = store.get("aigym-" + s + "-card") || {};
+      if (ap && ap.fields) out.push({ st: s, name: name, title: ap.title, kind: "Ship it card", rows: ap.fields.map(function (f) { return [f.label, av[f.id] || ""]; }) });
+      return out;
+    }).catch(function () { return []; });
+  })).then(function (lists) {
+    cards = [].concat.apply([], lists);
+    var filled = cards.filter(function (c) { return c.rows.some(function (r) { return r[1]; }); }).length;
+    $("pf").innerHTML = '<p>' + filled + ' of ' + cards.length + ' cards have something in them.</p>' + cards.map(function (c) {
+      var has = c.rows.some(function (r) { return r[1]; });
+      return '<div class="pf-card' + (has ? '' : ' blank') + '"><h3>' + esc(c.title) + '</h3><p class="pf-sub">' + c.st.toUpperCase() + ' ' + esc(c.name) + ', ' + c.kind + '</p>' +
+        (has ? '<dl>' + c.rows.filter(function (r) { return r[1]; }).map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join("") + '</dl>'
+             : '<p class="empty">Not filled yet. <a href="../' + c.st + '/#' + (c.kind === "Lab card" ? "lab" : "apply") + '">Open ' + c.st.toUpperCase() + '</a></p>') + '</div>';
+    }).join("");
+  });
+
+  function md() {
+    var lines = ["# Capstone: ship an AI feature end to end", "", "## Deliverables", ""];
+    document.querySelectorAll(".cap-steps li").forEach(function (li) {
+      var k = li.querySelector("[data-cd]").dataset.cd, t = li.querySelector("b").textContent;
+      lines.push("- [" + (cap.done[k] ? "x" : " ") + "] " + t + (cap.card[k] ? ": " + cap.card[k] : ""));
+    });
+    lines.push("", "## Lab and Ship it cards", "");
+    cards.forEach(function (c) {
+      var rows = c.rows.filter(function (r) { return r[1]; }); if (!rows.length) return;
+      lines.push("### " + c.title + " (" + c.st.toUpperCase() + ")");
+      rows.forEach(function (r) { lines.push("- **" + r[0] + ":** " + r[1].replace(/\n/g, " ")); });
+      lines.push("");
+    });
+    lines.push("Made with AI Gym: https://dhavalk21.github.io/ai-gym/");
+    return lines.join("\n");
+  }
+  function say(el, t) { el.textContent = t; setTimeout(function () { el.textContent = ""; }, 2500); }
+  $("capcopy").onclick = function () {
+    var t = md();
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { say($("capmsg"), "Copied"); }, function () { say($("capmsg"), "Copy failed: select and copy manually"); });
+  };
+  $("capprint").onclick = function () { window.print(); };
+  function paintDone() { if (PR && PR.isDone("CAP")) { $("capdone").textContent = "Capstone complete"; $("capdone").disabled = true; } }
+  $("capdone").onclick = function () { if (PR) { PR.markDone("CAP", "marked"); paintDone(); say($("capdmsg"), "Well done. That's the whole gym."); } };
+  paintDone();
+})();
+</script>
+</body>
+</html>

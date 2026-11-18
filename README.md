@@ -10,7 +10,7 @@
 
 Product managers don't need to train models, but they do need to build, judge and ship AI features alongside engineers. Reading about AI doesn't get you there. Doing it does.
 
-So every station has a **lab**: you work in real tools, step by step, with prompts and code to copy and a free path for everything. You count tokens, blind-test models, call an API, score your own AI ideas, and more as the stations open. Your lab notes add up to a portfolio piece by the capstone.
+So every station has a **lab**: you work in real tools, step by step, with prompts and code to copy and a free path for everything. You count tokens, blind-test models, call an API, build a RAG assistant and a prototype, write evals and guardrails, model costs and draft an AI spec. The capstone gathers your lab cards into one portfolio piece.
 
 Everything is free, needs no sign-up, and works in the browser. Your progress stays in your own browser.
 
@@ -50,8 +50,8 @@ Twelve stations in six zones, in the order an AI feature gets built, plus a setu
 | **Build** | [A5 Prototyping with AI](https://dhavalk21.github.io/ai-gym/a5/), [A6 Agents, tools and MCP](https://dhavalk21.github.io/ai-gym/a6/) | Live |
 | **Measure quality** | [A7 Evals](https://dhavalk21.github.io/ai-gym/a7/), [A8 Guardrails, safety and observability](https://dhavalk21.github.io/ai-gym/a8/) | Live |
 | **Ship** | [A9 AI UX and trust](https://dhavalk21.github.io/ai-gym/a9/), [A10 AI economics and pricing](https://dhavalk21.github.io/ai-gym/a10/) | Live |
-| **Lead** | A11 Responsible AI and the EU AI Act, A12 The AI-native PM | Coming soon |
-| **Capstone** | Ship an AI feature end to end | Planned |
+| **Lead** | [A11 Responsible AI and the EU AI Act](https://dhavalk21.github.io/ai-gym/a11/), [A12 The AI-native PM](https://dhavalk21.github.io/ai-gym/a12/) | Live |
+| **Capstone** | [Ship an AI feature end to end](https://dhavalk21.github.io/ai-gym/cap/): nine deliverables, with all your lab cards gathered into one portfolio piece | Live |
 
 ## Games
 
@@ -67,6 +67,8 @@ Twelve stations in six zones, in the order an AI feature gets built, plus a setu
 | A8 | [Break the Bot](https://dhavalk21.github.io/ai-gym/games/break-the-bot/) | Name the risk in eight AI incidents, then pick the guardrail that stops it |
 | A9 | [Trust Tuner](https://dhavalk21.github.io/ai-gym/games/trust-tuner/) | Find the trust problem on eight AI screens, then pick the design change that fixes it |
 | A10 | [Margin Maker](https://dhavalk21.github.io/ai-gym/games/margin-maker/) | Pick the cost lever for eight AI features, from routing and caching to pricing |
+| A11 | [Risk Tier](https://dhavalk21.github.io/ai-gym/games/risk-tier/) | Place eight AI systems in the EU AI Act's risk tiers, then pick what has to happen next |
+| A12 | [Launch Control](https://dhavalk21.github.io/ai-gym/games/launch-control/) | Make the call at eight AI launch moments: hold, stage, fix the metric or roll back |
 
 ## Built with
 

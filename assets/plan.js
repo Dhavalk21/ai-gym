@@ -18,7 +18,7 @@ window.AIGYM = {
     { code: "A9", zone: 4, name: "AI UX and trust", short: "AI UX", desc: "Setting expectations, showing sources, human-in-the-loop patterns, and the guidelines that help.", game: "Trust Tuner", lab: "Redesign an AI screen against the HAX guidelines", page: "a9/" },
     { code: "A10", zone: 4, name: "AI economics and pricing", short: "Economics", desc: "Token maths, latency and caching, routing, cost per task, and pricing AI features.", game: "Margin Maker", lab: "Build a cost-per-task model", page: "a10/" },
     { code: "A11", zone: 5, name: "Responsible AI and the EU AI Act", short: "EU AI Act", desc: "Risk tiers and timelines, GDPR meets AI, and documentation that holds up.", game: "Risk Tier", lab: "Classify AI features and draft a transparency notice", page: "a11/" },
-    { code: "A12", zone: 5, name: "The AI-native PM", short: "AI-native PM", desc: "The AI spec with evals as acceptance criteria, launching and measuring AI features, and AI in your own work.", game: "Launch Control", lab: "Write an AI spec and build your toolkit" }
+    { code: "A12", zone: 5, name: "The AI-native PM", short: "AI-native PM", desc: "The AI spec with evals as acceptance criteria, launching and measuring AI features, and AI in your own work.", game: "Launch Control", lab: "Write an AI spec and build your toolkit", page: "a12/" }
   ],
-  capstone: { code: "Cap", zone: 5, name: "Capstone", desc: "Ship an AI feature end to end: spec, prototype, a 20-case eval, guardrails, a cost model and a launch metric, built from your lab cards.", game: "The real thing", lab: "Your portfolio piece" }
+  capstone: { code: "Cap", zone: 5, name: "Capstone", desc: "Ship an AI feature end to end: spec, prototype, a 20-case eval, guardrails, a cost model and a launch metric, built from your lab cards.", game: "The real thing", lab: "Your portfolio piece", page: "cap/" }
 };
