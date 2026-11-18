@@ -219,7 +219,8 @@
   }
 
   function renderFloor() {
-    var html = '<div class="entrance"><b>Entrance</b><span>' + P.setup.code + ' ' + P.setup.name + ', coming soon</span></div>';
+    var sdone = PR.isDone(P.setup.code);
+    var html = '<a class="entrance" href="' + P.setup.page + '"><b>Entrance</b><span>' + P.setup.code + ' ' + P.setup.name + (sdone ? ', done' : ', start here') + '</span></a>';
     ZN.forEach(function (name, zi) {
       html += '<div class="zone" style="flex:' + FLEX[zi] + '"><div class="stripe" style="background:' + floorCol(zi) + '"></div>' +
         '<div class="zone-head"><h3>' + name + '</h3><span>Zone ' + (zi + 1) + '</span></div><div class="stations">' +

@@ -423,7 +423,7 @@
       $("dcundo").onclick = function () { PR.unmark(CODE); paintDone(); };
     } else {
       box.className = "donecard";
-      box.innerHTML = '<span class="dc-ring" aria-hidden="true"></span><div><b>Finish ' + CODE + '</b><p>Pass the mastery check (4 of 5) and this station is marked done automatically. Or mark it yourself.</p></div>' +
+      box.innerHTML = '<span class="dc-ring" aria-hidden="true"></span><div><b>Finish ' + CODE + '</b><p>' + ($("mastery") ? 'Pass the mastery check (4 of 5) and this station is marked done automatically. Or mark it yourself.' : 'Done the lab? Mark this station complete and it shows as done on the gym floor.') + '</p></div>' +
         '<div class="dc-act"><button type="button" class="btn" id="dcmark">Mark station complete</button></div>';
       $("dcmark").onclick = function () { PR.markDone(CODE, "marked"); paintDone(true); };
     }

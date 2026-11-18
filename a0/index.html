@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A0 Your AI workbench | AI Gym</title>
+<meta name="description" content="Set up your AI workbench: a free Gemini API key, your first API call in Google Colab, pricing a call, and where spend caps live.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/station.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='12' width='28' height='4' rx='2' fill='%238A939D'/%3E%3Crect x='5' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3Crect x='18' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3C/svg%3E">
+
+</head>
+<body data-station="a0">
+
+<div class="hero-band">
+<header class="wrap top">
+  <a class="brand" href="../">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="0" y="12" width="28" height="4" rx="2" fill="#8A939D"/><rect x="5" y="3" width="5" height="22" rx="1.5" fill="#155E63"/><rect x="18" y="3" width="5" height="22" rx="1.5" fill="#155E63"/></svg>
+    AI Gym
+  </a>
+  <nav aria-label="Main">
+    <a href="../#floor">Gym floor</a>
+    <a href="../#session">The session</a>
+    <a href="../#rack">Playground</a>
+    <a href="../#toolbox">Toolbox</a>
+    <span class="links">
+      <a class="btn sm" href="https://pmgym.netlify.app/">PM Gym</a>
+      <a class="btn sm" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+      <a class="btn sm" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+      <a class="btn sm solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+    </span>
+  </nav>
+</header>
+<section class="wrap" style="padding-block: 8px 40px">
+  <div class="crumbs"><a href="../#floor">Gym floor</a> / Entrance / A0</div>
+  <div class="title">
+    <svg class="plate-badge" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#155E63"/><circle cx="28" cy="28" r="20" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/><text x="28" y="34" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="17" fill="#fff">A0</text></svg>
+    <div>
+      <span class="zone-tag"><i style="background:#155E63"></i>Entrance, start here</span>
+      <h1>Your AI workbench</h1>
+      <p>Set up the free tools the labs use, make your first API call, and learn the two safety habits every AI builder needs: guard your keys, and cap your spend.</p>
+    </div>
+  </div>
+  <div class="meta"><span>About 30 minutes</span><span>One lab, four steps</span><span>Free tools only</span></div>
+</section>
+</div>
+
+<main class="wrap">
+  <section id="ways" class="block">
+    <h2>Three ways to use a model</h2>
+    <p>You'll use all three in AI Gym. Products are built on the third.</p>
+    <div class="ways">
+      <div class="way"><small>1. For your own work</small><h3>Chat apps</h3><p>Claude, ChatGPT, Gemini. Great for research, drafts and thinking things through.</p><p><b>You can't control:</b> the hidden instructions, the exact model version, or the settings.</p></div>
+      <div class="way"><small>2. For testing</small><h3>Playgrounds</h3><p>Google AI Studio, the OpenAI Playground, the Claude Console. You choose the model, write the system prompt and set temperature.</p><p><b>Use it to:</b> try a prompt before anyone writes code.</p></div>
+      <div class="way"><small>3. For products</small><h3>The API</h3><p>Your code sends text to the model and gets an answer back, with a token count and a price on every call.</p><p><b>Every AI feature</b> you ship runs this way, behind the scenes.</p></div>
+    </div>
+  </section>
+
+  <section id="lab" class="block">
+    <h2>Lab: Your first API call, safely <span class="tag">About 30 minutes</span></h2>
+    <p>Get a free API key, call a model from code, price the call, and learn where the spend caps live before you ever use a paid key. Your ticks and notes stay in this browser.</p>
+    <div id="lab-ui"></div>
+    <script type="application/json" id="lab-config">{"needs": ["A Google account. No credit card needed for this lab.", "A browser. Google Colab runs the code for you, so there's nothing to install.", "Use made-up text only. Free tiers can use what you send to improve their products."], "parts": [{"title": "Get a free API key", "tool": "Google AI Studio", "url": "https://aistudio.google.com/", "time": "5 min", "goal": "Create a key for the Gemini API's free tier, and learn to treat it like a password.", "steps": ["Open Google AI Studio and sign in.", "Find <b>Get API key<\/b>, create a key, and copy it. Don't paste it anywhere yet.", "Read the rule: an API key is a password with a bill attached. Never put it in shared code, documents, chats or screenshots. If one leaks, delete it in AI Studio and make a new one."], "see": "A key that starts with a few letters and a long random string. You'll store it in Colab's secrets in the next step.", "tip": "Why only made-up data? Google's Gemini API terms say that on unpaid services, such as AI Studio and the free API quota, Google uses what you submit and the responses to improve its products, and human reviewers may read them. The same terms say apps offered to users in the EEA, Switzerland or the UK may use only the paid service (<a href=\"https://ai.google.dev/terms\" target=\"_blank\" rel=\"noopener\">Gemini API Additional Terms<\/a>).", "checks": ["I created a Gemini API key", "I know what to do if a key leaks"]}, {"title": "Call a model from code", "tool": "Google Colab", "url": "https://colab.research.google.com/", "time": "10 min", "goal": "Send one request through the API and read what comes back: the answer and the token counts.", "steps": ["Open Google Colab and create a new notebook.", "Click the key icon in the left sidebar (Secrets). Add a secret named <b>GEMINI_API_KEY<\/b>, paste your key as the value, and switch on notebook access.", {"t": "In the first cell, install Google's library and run it:", "copy": "!pip install -q -U google-genai"}, {"t": "In a new cell, paste this and run it:", "copy": "from google import genai\nfrom google.colab import userdata\n\nclient = genai.Client(api_key=userdata.get(\"GEMINI_API_KEY\"))\n\nresponse = client.models.generate_content(\n    model=\"gemini-flash-latest\",\n    contents=\"Write a one-line welcome message for Ledgerly, an invoicing app for EU freelancers.\",\n)\nprint(response.text)\nprint(response.usage_metadata)"}], "see": "A one-line welcome message, then a block of usage numbers. Look for <b>prompt_token_count<\/b> (what you sent) and <b>candidates_token_count<\/b> (what it wrote). Some models also report <b>thoughts_token_count<\/b> for thinking.", "tip": "<b>gemini-flash-latest<\/b> is an alias that always points to Google's current Flash model, so this code keeps working as models change. In a real product you'd pin an exact version instead, so nothing changes under you. If you see an error about the secret, check the name matches exactly and notebook access is on.", "checks": ["My call returned an answer", "I found the input and output token counts"]}, {"title": "Price one call", "tool": "Your notebook + a pricing page", "url": "https://ai.google.dev/gemini-api/docs/pricing", "time": "5 min", "goal": "Turn token counts into money, and see why volume matters more than the price of one call.", "steps": ["Open the Gemini API pricing page and find the paid input and output prices for the Flash model you used.", {"t": "In a new cell, fill in your numbers and run:", "copy": "# Fill in from your own run and from the provider's pricing page (USD per 1 million tokens)\ninput_tokens  = 20      # prompt_token_count\noutput_tokens = 30      # candidates_token_count, plus thoughts_token_count if shown\nprice_in  = 0.00        # input price per 1M tokens\nprice_out = 0.00        # output price per 1M tokens\n\nper_call = input_tokens / 1e6 * price_in + output_tokens / 1e6 * price_out\nprint(f\"One call: ${per_call:.6f}\")\nprint(f\"One million calls: ${per_call * 1e6:,.2f}\")"}, "Try the same sum with a frontier model's prices from the same page."], "see": "One call costs a tiny fraction of a cent. A million calls is real money, and the gap between a Flash model and a frontier model can be large. That's why A1 starts from volume.", "tip": "Output tokens usually cost more than input tokens. If your run shows thinking tokens, check the pricing page for how they're billed and include them.", "checks": ["I priced one call and a million calls", "I compared a small and a frontier model's cost"]}, {"title": "Know where the spend caps are", "tool": "OpenAI and Claude consoles", "url": "https://developers.openai.com/api/docs/guides/spend-limits", "time": "5 min", "goal": "Before you ever use a paid key, know the difference between an alert and a cap, and where to set the cap.", "steps": ["Read the difference: a spend <b>alert<\/b> only emails you, and traffic keeps flowing. A hard <b>limit<\/b> stops requests when spend reaches the amount.", "OpenAI: in organization or project settings, open <b>Limits<\/b>, set a monthly spend amount and switch on the hard limit. Requests over the cap fail with a 429 error.", "Anthropic: in the Claude Console, set an organization spend limit under billing, and give each app its own workspace with its own limit.", "Google: on the free tier with no billing account linked, you aren't charged. If you turn on billing later, set up spending controls first."], "see": "You can name where the cap lives for each provider you might use, and you've decided on a monthly number you're comfortable with.", "tip": "Give every experiment or app its own project or workspace. Then one runaway script can only burn its own budget.", "checks": ["I can explain an alert versus a hard limit", "I know where I'd set a cap before using a paid key"]}], "card": {"title": "My workbench", "intro": "Your setup at a glance. You'll reuse the token and cost numbers in A1 and A10.", "fields": [{"id": "secret", "label": "Key stored in Colab Secrets as", "ph": "GEMINI_API_KEY"}, {"id": "tin", "label": "Input tokens / output tokens", "ph": "For example: 21 / 18"}, {"id": "cost", "label": "Cost per call and per million calls", "ph": "For example: $0.00002 / $20"}, {"id": "cap", "label": "My monthly cap for any paid key", "ph": "For example: $10"}, {"id": "note", "label": "One thing to remember", "ph": "", "long": true}]}}</script>
+  </section>
+
+  <section id="check" class="block" style="border-bottom: 0">
+    <div class="takeaways" style="margin-top:0">
+      <h3>Key takeaways</h3>
+      <ol>
+        <li><b>Chat apps for your work, playgrounds for testing, the API for products.</b> Only the API gives you the full control a product needs.</li>
+        <li><b>An API key is a password with a bill attached.</b> Keep it in a secrets store, never in code you share.</li>
+        <li><b>Free tiers can trade your data for the price.</b> Read what the provider does with your prompts before you send anything real.</li>
+        <li><b>An alert isn't a cap.</b> Set a hard spend limit before you use a paid key.</li>
+      </ol>
+    </div>
+    <div class="shelf-x"><h3>Expert shelf</h3><p>The best free material on this topic, picked so you can go deeper. Each one is from the people who know it best.</p><div class="xs"><a class="xr" href="https://ai.google.dev/gemini-api/docs/quickstart" target="_blank" rel="noopener"><span class="xk"><span>Docs</span><span class="t">10 min</span></span><b>Gemini API quickstart</b><span class="who">Google</span><p>The official first steps: a key, the library, and your first request.</p></a><a class="xr" href="https://ai.google.dev/terms" target="_blank" rel="noopener"><span class="xk"><span>Terms</span><span class="t">10 min</span></span><b>Gemini API Additional Terms</b><span class="who">Google</span><p>Read the section on how Google uses your data. It differs between free and paid use.</p></a><a class="xr" href="https://developers.openai.com/api/docs/guides/spend-limits" target="_blank" rel="noopener"><span class="xk"><span>Docs</span><span class="t">5 min</span></span><b>Spend limits</b><span class="who">OpenAI</span><p>The difference between alerts and hard limits, and what your app sees when a cap is hit.</p></a><a class="xr" href="https://colab.research.google.com/" target="_blank" rel="noopener"><span class="xk"><span>Tool</span><span class="t">5 min</span></span><b>Google Colab</b><span class="who">Google</span><p>Free Python notebooks in the browser. You'll use it again in the RAG and evals labs.</p></a></div></div>
+  </section>
+</main>
+
+<div class="wrap" style="border-top: 1px solid var(--line)">
+  <div class="pager"><a href="../#floor">Back to the gym floor</a><a href="../a1/">Next: A1 How LLMs work, and choosing a model</a></div>
+</div>
+
+<footer class="wrap site">
+  <span>AI Gym by Dhaval Kareliya. Free, hands-on AI practice for product managers.</span>
+  <span class="links">
+    <a class="btn" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+    <a class="btn" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+    <a class="btn solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+  </span>
+</footer>
+
+<script src="../assets/progress.js"></script>
+<script src="../assets/station.js"></script>
+</body>
+</html>

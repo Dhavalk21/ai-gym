@@ -344,3 +344,9 @@ table.example th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
 .xr p { margin: 0; color: var(--ink-2); font-size: 16px; }
 .teach-grid.one { grid-template-columns: minmax(0, 760px); }
 .lc-fields label:has(textarea) { grid-column: 1 / -1; }
+.ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 22px; }
+.way { background: #fff; border: 1px solid var(--line); border-top: 5px solid var(--petrol); border-radius: 8px; padding: 18px 20px; }
+.way small { font-weight: 600; color: var(--ink-3); font-size: 14px; }
+.way h3 { font-size: 28px; font-weight: 700; margin: 2px 0 6px; }
+.way p { margin: 0 0 8px; color: var(--ink-2); font-size: 16px; }
+.way p:last-child { margin: 0; }

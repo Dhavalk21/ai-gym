@@ -5,7 +5,7 @@ window.AIGYM = {
   colors: ["#E3A82B", "#2A9D8F", "#4C7BD9", "#6BA368", "#9B6BB0", "#D07A45"],
   onColors: ["#17202A", "#17202A", "#17202A", "#17202A", "#17202A", "#17202A"],
   zones: ["Understand the machine", "Talk to models", "Build", "Measure quality", "Ship", "Lead"],
-  setup: { code: "A0", name: "Your AI workbench", desc: "Accounts, playgrounds, API keys with a spend cap, and your first API call." },
+  setup: { code: "A0", name: "Your AI workbench", desc: "Accounts, playgrounds, API keys with a spend cap, and your first API call.", page: "a0/" },
   modules: [
     { code: "A1", zone: 0, name: "How LLMs work, and choosing a model", short: "LLMs & models", desc: "Tokens and next-token prediction, how training shapes behaviour, why models hallucinate, and how to pick the right model for a job.", game: "Model Matchmaker", lab: "Tokenizer, temperature and a blind model test", page: "a1/" },
     { code: "A2", zone: 0, name: "Where AI fits", short: "AI fit", desc: "Automation or augmentation, the use-case canvas (value, cost of error, data), and build, buy or partner.", game: "Fit or Fad", lab: "Score five AI ideas on a use-case canvas" },
