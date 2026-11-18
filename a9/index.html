@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A9 AI UX and trust | AI Gym</title>
+<meta name="description" content="AI UX for product managers: calibrated trust, designing for when AI is wrong, and choosing the level of autonomy, with Microsoft&#x27;s HAX guidelines. Three lessons, a hands-on lab, two real cases and the Trust Tuner game.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/station.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='12' width='28' height='4' rx='2' fill='%238A939D'/%3E%3Crect x='5' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3Crect x='18' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3C/svg%3E">
+<style>
+  .graders { width: 100%; max-width: 760px; border-collapse: collapse; margin: 8px 0 12px; font-size: 15px; }
+  .graders th, .graders td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .graders th { color: var(--ink-3); font-size: 14px; }
+  .loop { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0 12px; font-size: 15px; }
+  .loop span { padding: 8px 12px; border-radius: 6px; background: var(--petrol-soft); color: var(--petrol); font-weight: 600; }
+  .loop i { color: var(--ink-3); font-style: normal; }
+</style>
+</head>
+<body data-station="a9">
+
+<div class="hero-band">
+<header class="wrap top">
+  <a class="brand" href="../">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="0" y="12" width="28" height="4" rx="2" fill="#8A939D"/><rect x="5" y="3" width="5" height="22" rx="1.5" fill="#155E63"/><rect x="18" y="3" width="5" height="22" rx="1.5" fill="#155E63"/></svg>
+    AI Gym
+  </a>
+  <nav aria-label="Main">
+    <a href="../#floor">Gym floor</a>
+    <a href="../#session">The session</a>
+    <a href="../#rack">Playground</a>
+    <a href="../#toolbox">Toolbox</a>
+    <span class="links">
+      <a class="btn sm" href="https://pmgym.netlify.app/">PM Gym</a>
+      <a class="btn sm" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+      <a class="btn sm" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+      <a class="btn sm solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+    </span>
+  </nav>
+</header>
+<section class="wrap" style="padding-block: 8px 40px">
+  <div class="crumbs"><a href="../#floor">Gym floor</a> / Zone 5, Ship / A9</div>
+  <div class="title">
+    <svg class="plate-badge" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#9B6BB0"/><circle cx="28" cy="28" r="20" fill="none" stroke="#17202A" stroke-opacity=".22" stroke-width="2"/><text x="28" y="34" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="17" fill="#17202A">A9</text></svg>
+    <div>
+      <span class="zone-tag"><i style="background:#9B6BB0"></i>Zone 5, Ship</span>
+      <h1>AI UX and trust</h1>
+      <p>How to design AI features people trust the right amount: set honest expectations, make mistakes cheap to fix, and choose how much the AI does on its own. Then redesign an AI screen and test it.</p>
+    </div>
+  </div>
+  <div class="meta"><span>3 lessons</span><span>Lab, about 45 min</span><span>2 cases</span><span>Game: Trust Tuner</span><span id="lprog">0 of 3 lessons done</span></div>
+</section>
+</div>
+
+<nav class="stepnav" aria-label="Session steps"><div class="wrap" id="stepnav"></div></nav>
+
+<main class="wrap">
+
+  <section id="warmup" class="block">
+    <h2>Warm-up <span class="tag">Optional, 3 minutes</span></h2>
+    <p>Make three quick predictions before the lessons, and say how sure you are. You'll see how you did at the end. <a href="#lessons">Skip to the lessons</a></p>
+    <div class="wu">
+      <div class="story">
+        <small>The situation</small>
+        <p>Ledgerly's AI expense categoriser is accurate 96% of the time. The research team watched ten users: nine clicked "Accept all" in seconds. Two months later, an accountant finds a client's private dinner filed as a business expense.</p>
+        <div class="quote">"The AI was right almost every time!" "Almost. And nobody knew which time it wasn't."</div>
+        <p class="science">Why predict first? Trying a question before the lesson makes the lesson stick better, even when the first guess is wrong. Rating your confidence trains you to notice what you don't know yet.</p>
+      </div>
+      <div id="warmup-ui"></div>
+    </div>
+    <script type="application/json" id="warmup-config">{"questions": [{"q": "What went wrong?", "o": ["Users were careless", "The design invited over-trust: nothing showed which items to check", "The model was too inaccurate to ship"], "a": 1, "why": "Accurate isn't enough; people need to know when to check. Lesson 1 covers calibrated trust."}, {"q": "What's the best fix?", "o": ["Put uncertain items first for a quick check, and make changing one a single click", "Add a warning that AI can make mistakes", "Remove \"Accept all\" and make people review all 300"], "a": 0, "why": "Spend attention where the model is unsure. Lessons 1 and 2 show how."}, {"q": "How much should the AI do alone at launch?", "o": ["File everything silently", "Only show tips", "Draft for review, with bulk accept for confident items"], "a": 2, "why": "Start lower than you think and earn the next level. Lesson 3 has the ladder."}]}</script>
+  </section>
+
+  <section id="lessons" class="block">
+    <h2>Lessons</h2>
+    <p>Three short lessons. Each runs the same way: the idea, the framework, a real example, where it breaks, and a quick drill.</p>
+    <div class="lessons">
+<details class="lesson" data-lesson="1"><summary><span class="ln">1</span><span class="lt"><b>Calibrated trust</b><span>The goal isn't more trust. It's the right amount, matched to what the AI can really do.</span></span><span class="lmin">8 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>People can trust AI too much or too little. <b>Over-reliance</b> is accepting an AI answer that's wrong. <b>Under-reliance</b> is ignoring an answer that's right. Both cost you: one in mistakes, the other in a feature nobody uses.</p><p><b>Calibrated trust</b> means people rely on the AI when it's likely right, and check it when it's likely wrong. That's a design job, and much of it is the PM's.</p></div><div class="part"><h4>The framework</h4><p><b>Four levers for calibrating trust:</b></p><ol><li><b>Say what it can do</b>, with examples, and what it can't. (Microsoft's HAX guideline 1.)</li><li><b>Say how well it does it.</b> Honest precision: a range, not €12,438.17; "usually right for receipts, less so for handwritten ones". (HAX guideline 2.)</li><li><b>Make checking cheap:</b> show the source, highlight what it changed, put the uncertain items first.</li><li><b>Make checking worth it:</b> flag the cases where a mistake costs the most.</li></ol><p>The HAX guidelines are 18 guidelines for human-AI interaction from Microsoft researchers (Amershi et al., CHI 2019), grouped by when they apply: at first use, during use, when the AI is wrong, and over time.</p></div><div class="part"><h4>Real example</h4><p>Stanford researchers ran five studies with 731 people on a maze task with AI help. Explanations reduced over-reliance only when checking them was easier than solving the task alone, or when getting it right paid off. When checking was hard, people just accepted the AI's answer, explanation or not.</p><p>Source: <a href="https://arxiv.org/abs/2212.06823" target="_blank" rel="noopener">Vasconcelos et al., "Explanations Can Reduce Overreliance on AI Systems During Decision-Making"</a>, CSCW 2023.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Explanations aren't automatically helpful.</b> A long explanation that's hard to check can raise trust without improving decisions.</li><li><b>"AI can make mistakes"</b> in small print doesn't calibrate anything. It doesn't tell people <i>when</i> to check.</li><li><b>Confidence scores</b> only help if they're accurate and people understand them. Groupings like "please check these 12" often work better than percentages.</li></ul></div><div class="part drill"><h4>Drill: Calibrate it</h4><div class="check stack" data-answer="2"><p class="cq">Ledgerly's AI categorises 300 transactions; about 4% are wrong. What helps people check the right ones?</p><div class="opts"><button type="button" class="opt">A warning that AI can make mistakes</button><button type="button" class="opt">A confidence percentage on every row</button><button type="button" class="opt">Bulk-accept the confident ones, and list the uncertain ones for a quick check</button></div><p class="cfb" data-ok="Right. Put the user's attention where the model is unsure." data-no="Group the uncertain ones for checking. Attention is the scarce resource."></p></div></div></div></details>
+<details class="lesson" data-lesson="2"><summary><span class="ln">2</span><span class="lt"><b>Design for when it's wrong</b><span>Every AI feature is wrong sometimes. Great ones make that cheap.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>Classic software is right or broken. AI is right most of the time and wrong some of the time, so the experience of being wrong is part of the product. Ask early: <b>when this is wrong, what does the user see, and what does it cost them?</b></p></div><div class="part"><h4>The framework</h4><p><b>The recovery toolkit</b>, from the HAX "when wrong" guidelines and Google's People + AI Guidebook:</p><table class="graders"><tr><th>Pattern</th><th>What it looks like</th></tr><tr><td><b>Easy dismissal</b> (HAX G8)</td><td>Suggestions in grey; ignoring them costs nothing</td></tr><tr><td><b>Easy correction</b> (HAX G9)</td><td>Editable fields, one-click "change category", undo</td></tr><tr><td><b>Scope down when in doubt</b> (HAX G10)</td><td>Ask a clarifying question, or offer options, instead of guessing</td></tr><tr><td><b>Show why</b> (HAX G11)</td><td>"Filled from studio-nord.de", "based on 3 similar invoices"</td></tr><tr><td><b>Granular feedback</b> (HAX G15)</td><td>"This is wrong: wrong amount", not just thumbs down</td></tr><tr><td><b>Graceful failure</b></td><td>"I couldn't read this receipt. Enter the total?", never a dead end</td></tr></table></div><div class="part"><h4>Real example</h4><p>Perplexity, the AI answer engine, attaches numbered citations to every answer, linking each claim to its source so people can check it in one click. Its help centre describes this as how the product works, not an extra.</p><p>Source: <a href="https://www.perplexity.ai/help-center/en/articles/10352895-how-does-perplexity-work" target="_blank" rel="noopener">Perplexity Help Center, "How does Perplexity work?"</a></p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>A citation is not proof.</b> Sources can be wrong, misread or not say what the answer claims. Citations make checking possible; evals (A7) check the citations.</li><li><b>Thumbs down with no reason</b> tells you something went wrong, but not what.</li><li><b>Undo that expires instantly</b> or hides in a menu isn't really undo.</li></ul></div><div class="part drill"><h4>Drill: Pick the pattern</h4><div class="check stack" data-answer="0"><p class="cq">The AI fills a client's VAT number and is sometimes wrong. Which pattern matters most?</p><div class="opts"><button type="button" class="opt">Keep the field editable and show where the number came from</button><button type="button" class="opt">Hide that the AI filled it</button><button type="button" class="opt">Ask the user to rate the AI after each invoice</button></div><p class="cfb" data-ok="Right. Easy correction plus showing why." data-no="Keep it editable and show the source: efficient correction and &quot;show why&quot;."></p></div></div></div></details>
+<details class="lesson" data-lesson="3"><summary><span class="ln">3</span><span class="lt"><b>Choose the level of autonomy</b><span>Suggest, draft, act with approval, or act alone? Match it to the stakes.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>The same AI capability can ship at very different levels of autonomy. Choosing the level is one of the biggest product decisions in an AI feature, and it's yours to make.</p><div class="loop"><span>1. Suggest</span><i>→</i><span>2. Draft for review</span><i>→</i><span>3. Act with approval</span><i>→</i><span>4. Act, then report</span><i>→</i><span>5. Act silently</span></div></div><div class="part"><h4>The framework</h4><p><b>Three questions decide the level:</b></p><ol><li><b>How bad is a mistake?</b> Money, clients, legal or health: stay low.</li><li><b>Can it be undone?</b> A sent email or a payment can't. A category can.</li><li><b>How accurate is it, measured?</b> Your evals (A7) tell you, not the demo.</li></ol><p>Start one level lower than you think, measure, and earn the next level. Make waiting feel short too: stream text as it's written and show progress for long tasks, so people stay in control while the AI works.</p></div><div class="part"><h4>Real example</h4><p>When GitHub launched its Copilot coding agent in May 2025, it gave the agent real autonomy, but inside review: it works on its own branch, pushes commits to a draft pull request with session logs anyone can follow, and its pull requests need human approval before any CI/CD workflows run. The developer who asked the agent for the change can't be the one who approves it.</p><p>Source: <a href="https://github.blog/news-insights/product-news/github-copilot-meet-the-new-coding-agent/" target="_blank" rel="noopener">GitHub, "Meet the new coding agent"</a>, May 2025, and The New Stack's launch report.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Approval fatigue.</b> Ask for approval 50 times a day and people click "yes" without reading. Approve in batches, and only where it matters.</li><li><b>Silent autonomy</b> hides mistakes until they pile up. Even at level 5, keep a log people can review.</li><li><b>One level for everything</b> is rarely right. Low-risk cases can go higher than high-risk ones in the same feature.</li></ul></div><div class="part drill"><h4>Drill: Pick the level</h4><div class="check stack" data-answer="1"><p class="cq">Ledgerly wants AI to send overdue payment reminders to clients. Where should it start?</p><div class="opts"><button type="button" class="opt">Act silently: send automatically</button><button type="button" class="opt">Draft for review: the user approves each reminder, or a batch</button><button type="button" class="opt">Suggest: show a tip to send reminders manually</button></div><p class="cfb" data-ok="Right. Client emails can't be unsent, so start with review and earn more autonomy." data-no="Draft for review. A sent email can't be undone, and it touches a client relationship."></p></div></div></div></details>
+    </div>
+  </section>
+
+  <section id="lab" class="block">
+    <h2>Lab: Redesign an AI screen for trust <span class="tag">About 45 minutes</span></h2>
+    <p>Audit a real AI feature against the HAX guidelines, prototype a trust-calibrated screen for Ledgerly, then test whether people know when to check it. Your ticks and notes stay in this browser.</p>
+    <div id="lab-ui"></div>
+    <script type="application/json" id="lab-config">{"needs": ["Any AI feature you use: in a chatbot, your email, docs or design tool.", "Google AI Studio (free, Build mode). Lovable, Bolt or a Claude or ChatGPT canvas also work.", "Two people for five minutes each, or yourself with fresh eyes.", "Everything about Ledgerly is made up for practice."], "parts": [{"title": "Audit a real AI feature", "tool": "Any AI product + the HAX guidelines", "url": "https://www.microsoft.com/en-us/haxtoolkit/library/", "time": "15 min", "goal": "See the guidelines at work, or missing, in a product you know.", "steps": ["Pick one AI feature you use often: a chatbot, email summaries, AI in your docs or design tool.", {"t": "Use it for a few minutes with a task where it's likely to slip (a vague request, a niche fact). Then score it with this template:", "copy": "Pick 7 of the HAX guidelines and score the AI feature on each: 2 = does it well, 1 = partly, 0 = not at all. Note what you saw.\n\nG1  Make clear what the system can do.\nG2  Make clear how well the system can do what it can do.\nG8  Support efficient dismissal.\nG9  Support efficient correction.\nG10 Scope services when in doubt.\nG11 Make clear why the system did what it did.\nG15 Encourage granular feedback.\n\nFeature:\nScores (G1, G2, G8, G9, G10, G11, G15):\nBiggest gap, and one change that would fix it:"}, "Browse the HAX Design Library (the link above) for the guideline you scored lowest, and find one pattern that would fix it."], "see": "Most products score well on G1 and G8 and poorly on G2 and G15: they say what they can do, but rarely how well, and feedback is a bare thumbs down.", "tip": "Score what a new user would experience, not what you've learned to work around.", "checks": ["I scored one AI feature on 7 guidelines", "I found a HAX pattern for its biggest gap"]}, {"title": "Prototype a trust-calibrated screen", "tool": "Google AI Studio, Build mode", "url": "https://aistudio.google.com/", "time": "20 min", "goal": "Turn the patterns into a screen you can click through.", "steps": ["Open Google AI Studio and choose Build.", {"t": "Paste this brief and let it build:", "copy": "Build a single-screen, clickable prototype for Ledgerly, an invoicing app for freelancers. Use made-up data only.\n\nThe screen: \"Review AI categories\". The AI has sorted 40 bank transactions from last month into tax categories (Software, Travel, Office, Meals, Income, Other).\n\nDesign it for calibrated trust:\n1. A summary at the top: \"34 sorted confidently, 6 need a quick check\". The 6 uncertain ones appear first, highlighted.\n2. Each row shows date, payee, amount, the AI's category, and a short reason (\"Similar to 5 past Adobe payments\").\n3. Changing a category is one click: a dropdown on the row. Changed rows show \"Edited by you\".\n4. A button \"Accept the 34 confident ones\". After clicking, show a toast with Undo for 10 seconds.\n5. A small \"Wrong? Tell us why\" link on each row, with options: wrong category, not a business expense, duplicate.\n6. A one-line note: \"Categories are suggestions. Your accountant has the final say.\"\n\nClean, calm design: white background, dark text, one accent colour. No login, no backend."}, "Click through it: change a category, accept the confident ones, press Undo, open \"Wrong? Tell us why\". Fix anything that doesn't work with a short follow-up prompt.", "Add one improvement of your own, from your audit in part 1."], "see": "A clickable screen where the uncertain rows come first, every row can be fixed in one click, and bulk accept can be undone.", "tip": "If the tool adds a confidence percentage on every row, try asking it to remove them. Then judge: did grouping alone tell you what to check?", "checks": ["My prototype has uncertain items first, one-click correction and undo", "I added one improvement from my audit"]}, {"title": "Run a five-second test", "tool": "Your prototype + two people", "url": "", "time": "10 min", "goal": "Check that people understand when to trust it and when to check.", "steps": ["Show the screen to someone for five seconds, then hide it.", "Ask: What does the AI do here? Which items would you check? How would you undo a mistake?", "Repeat with a second person, then note what they missed and change one thing."], "see": "If both can say \"it sorted my transactions, I should check the six highlighted ones, and I can change or undo\", your trust design works.", "tip": "No one around? Come back after a break and do it yourself, answering out loud before you look again.", "checks": ["I tested with two people (or a fresh-eyes self-test)", "I changed one thing based on what they missed"]}], "card": {"title": "My trust design", "intro": "How you'd calibrate trust in an AI feature. You'll reuse this in A12's AI spec and the capstone.", "fields": [{"id": "audit", "label": "The feature I audited, its lowest HAX score, and the fix", "ph": "For example: email summaries; G2 scored 0; show which emails it skipped", "long": true}, {"id": "patterns", "label": "Trust patterns in my prototype", "ph": "For example: uncertain first, reasons, one-click edit, undo, specific feedback", "long": true}, {"id": "test", "label": "What testers missed, and what I changed", "ph": "For example: one didn't see Undo; made the toast bigger"}, {"id": "level", "label": "The autonomy level I'd ship it at", "ph": "For example: draft for review, then bulk accept"}]}}</script>
+  </section>
+
+  <section id="cases" class="block">
+    <h2>Cases</h2>
+    <p>An AI feature designed so that ignoring it costs nothing, and one that put confident AI answers above the world's search results.</p>
+    <div class="cases">
+      <div class="case" style="border-color: var(--green)"><small style="color: var(--green)">Got it right</small><h3>GitHub Copilot's suggestions</h3><p>Copilot's code completions appear as grey "ghost text" in the editor: press Tab to accept, keep typing to ignore. Being wrong costs the developer almost nothing. In GitHub's controlled experiment, developers using Copilot finished a coding task 55% faster (1 hour 11 minutes against 2 hours 41 minutes on average) and completed it more often (78% against 70%) (GitHub research blog, 2022). Its later coding agent climbs the autonomy ladder carefully, delivering draft pull requests for human review.</p><p class="take">Make the AI's output cheap to ignore and easy to accept, and raise autonomy only inside a review step people already trust.</p></div>
+      <div class="case" style="border-color: var(--red)"><small style="color: var(--red-text)">Got it wrong</small><h3>Google's AI Overviews</h3><p>Google rolled out AI Overviews to everyone in the US on 14 May 2024, placing AI answers above search results. Within days, screenshots went viral: it suggested non-toxic glue to keep cheese on pizza, from an old joke forum post, and eating a small rock a day, from a satire site. On 30 May, Google's head of Search, Liz Reid, acknowledged odd and inaccurate answers and listed more than a dozen fixes, including better detection of nonsense queries, less satire and user-generated content, and fewer triggers (Google blog, 30 May 2024; AP).</p><p class="take">The position and tone of an AI answer tell people how much to trust it. When it sits on top, sounds sure and has no easy check, every slip becomes a headline.</p></div>
+    </div>
+  </section>
+
+  <section id="game" class="block">
+    <h2>Game: Trust Tuner</h2>
+    <p>Eight AI screens from Ledgerly. Name the trust problem, from over-trust to no way back, then pick the design change that fixes it. About 10 minutes. <a href="../games/trust-tuner/">Open it on its own page</a> to share.</p>
+    <div id="gamebox" style="margin-top: 24px"></div>
+  </section>
+
+  <section id="apply" class="block">
+    <h2>Ship it: your trust design</h2>
+    <p>Design the trust experience for an AI feature in your own product, step by step. Your answers stay in this browser.</p>
+    <div class="builder" id="builder"></div>
+    <script type="application/json" id="apply-config">{"title": "Trust design", "sentence": "{feature} will ship at level: {level}.", "rows": [{"label": "What it can do, and how well", "text": "{expect}"}, {"label": "When users should check", "text": "{check}"}, {"label": "Correct, dismiss, undo", "text": "{recover}"}, {"label": "Feedback we collect", "text": "{feedback}"}, {"label": "Next autonomy step, and the bar", "text": "{next}"}], "fields": [{"id": "feature", "label": "The AI feature", "placeholder": "For example: AI expense categories", "blank": "Your AI feature"}, {"id": "level", "label": "Its autonomy level at launch", "placeholder": "Tap one or describe it", "blank": "level", "chips": ["Suggest", "Draft for review", "Act with approval", "Act, then report"]}, {"id": "expect", "label": "How you'll show what it can do, and how well", "placeholder": "For example: example output on first use; \"usually right for card payments\"", "blank": "expectations"}, {"id": "check", "label": "How users will know what to check", "placeholder": "For example: uncertain items first, highlighted", "blank": "checking"}, {"id": "recover", "label": "How users correct, dismiss or undo", "placeholder": "For example: one-click change, Undo for 10 seconds", "blank": "recovery"}, {"id": "feedback", "label": "What feedback you'll collect", "placeholder": "For example: \"wrong because\" with three reasons", "blank": "feedback"}, {"id": "next", "label": "What would earn the next autonomy level?", "placeholder": "For example: 98% correct on confident items for 8 weeks", "blank": "next step"}]}</script>
+    <details class="reveal">
+      <summary>Show a worked example</summary>
+      <div class="model">
+        <p><b>Feature:</b> AI expense categories in Ledgerly. <b>Level at launch:</b> draft for review, with bulk accept for confident items.</p>
+        <p><b>Expectations:</b> first use shows a sample month already sorted, and says "Usually right for card payments; less sure about cash and transfers". <b>Checking:</b> uncertain items come first, highlighted, each with a one-line reason. <b>Recovery:</b> a category dropdown on every row, Undo for bulk accept, and edits remembered for that payee.</p>
+        <p><b>Feedback:</b> "Wrong? Tell us why" with three reasons, feeding the golden set (A7). <b>Next level:</b> auto-file confident items and send a weekly summary, once confident items are 98% correct for eight weeks and edits stay under 2%.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="check" class="block" style="border-bottom: 0">
+    <h2>Mastery check</h2>
+    <p>Five questions, one at a time. Two come back from earlier stations. Then explain the idea in your own words.</p>
+    <div class="mastery" id="mastery">
+<div class="check stack" data-answer="1"><p class="cq">What does calibrated trust mean?</p><div class="opts"><button type="button" class="opt">Users trust the AI as much as possible</button><button type="button" class="opt">Users rely on it when it's likely right and check it when it's likely wrong</button><button type="button" class="opt">Users check every AI output</button></div><p class="cfb" data-ok="Right. Matched to what the AI can really do." data-no="Relying when it's likely right, checking when it's likely wrong."></p></div>
+<div class="check stack" data-answer="2"><p class="cq">An AI forecast shows "€12,438.17" but is often off by €2,000. What's the best fix?</p><div class="opts"><button type="button" class="opt">Add more decimals</button><button type="button" class="opt">Hide the forecast</button><button type="button" class="opt">Show a range and the main assumptions</button></div><p class="cfb" data-ok="Right. Match the UI's precision to the model's." data-no="A range. False precision invites over-trust."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">Which decides the autonomy level of an AI feature most?</p><div class="opts"><button type="button" class="opt">How bad a mistake is, whether it can be undone, and measured accuracy</button><button type="button" class="opt">How impressive the demo is</button><button type="button" class="opt">What competitors do</button></div><p class="cfb" data-ok="Right. Stakes, reversibility, evidence." data-no="Stakes, reversibility and measured accuracy."></p></div>
+<div class="check stack" data-answer="1"><p class="cq">From A8: what's the most reliable defence against an AI agent leaking data?</p><div class="opts"><button type="button" class="opt">A stricter system prompt</button><button type="button" class="opt">Removing one leg of the lethal trifecta</button><button type="button" class="opt">A bigger model</button></div><p class="cfb" data-ok="Right. Design beats prompt wishes." data-no="Remove a leg: private data, untrusted content or a way out."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">From A7: why should an AI judge's catch rate be measured separately from overall agreement?</p><div class="opts"><button type="button" class="opt">A judge that passes everything can still look accurate when most answers pass</button><button type="button" class="opt">Catch rate is easier to compute</button><button type="button" class="opt">Overall agreement is always wrong</button></div><p class="cfb" data-ok="Right. Measure fails caught on their own." data-no="Because high agreement can hide a judge that catches nothing."></p></div>
+      <p class="mscore" id="mscore" aria-live="polite"></p>
+    </div>
+    <div class="teach-grid one" id="teach-ui"></div>
+    <script type="application/json" id="teach-config">{"prompt": "Your designer asks: \"Should we just show a confidence score on every AI answer?\" In 280 characters or fewer, give your answer, and why.", "checks": [{"k": "calibrat|right amount|over|under", "label": "Aim for calibrated trust"}, {"k": "check|uncertain|highlight|review", "label": "Show what to check"}, {"k": "range|precision|accura|understand", "label": "Honest precision"}, {"k": "undo|correct|edit|dismiss|fix", "label": "Easy recovery"}, {"k": "test|user|research|people", "label": "Test with people"}], "model": "Only if the score is accurate and people understand it. Usually better: put uncertain items first for a quick check, show the source, and make correcting and undoing one click. Then test whether people know when to check."}</script>
+    <div class="takeaways">
+      <h3>Key takeaways</h3>
+      <ol>
+        <li><b>Aim for calibrated trust.</b> People should rely on the AI when it's likely right and check it when it's likely wrong.</li>
+        <li><b>Be honest about how well it works.</b> Show examples, limits and real precision. Put the user's attention where the model is unsure.</li>
+        <li><b>Design for being wrong.</b> Easy dismissal, one-click correction, undo, "show why", and specific feedback.</li>
+        <li><b>Choose autonomy by stakes.</b> Suggest, draft, approve, act: start one level lower, measure, and earn the next.</li>
+      </ol>
+    </div>
+    <div class="shelf-x"><h3>Expert shelf</h3><p>The best free material on this topic, picked so you can go deeper. Each one is from the people who know it best.</p><div class="xs"><a class="xr" href="https://www.microsoft.com/en-us/haxtoolkit/library/" target="_blank" rel="noopener"><span class="xk"><span>Guidelines</span><span class="t">30 min</span></span><b>HAX Toolkit: Guidelines and Design Library</b><span class="who">Microsoft Research</span><p>The 18 guidelines for human-AI interaction, with patterns and real product examples for each.</p></a><a class="xr" href="https://pair.withgoogle.com/guidebook/" target="_blank" rel="noopener"><span class="xk"><span>Guide</span><span class="t">45 min</span></span><b>People + AI Guidebook</b><span class="who">Google PAIR</span><p>Six chapters with worksheets, from mental models to errors and graceful failure, updated for generative AI.</p></a><a class="xr" href="https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/" target="_blank" rel="noopener"><span class="xk"><span>Paper</span><span class="t">20 min</span></span><b>Guidelines for Human-AI Interaction</b><span class="who">Amershi et al., CHI 2019</span><p>The research behind HAX, tested with 49 design practitioners against 20 AI products.</p></a><a class="xr" href="https://arxiv.org/abs/2212.06823" target="_blank" rel="noopener"><span class="xk"><span>Paper</span><span class="t">15 min (abstract and discussion)</span></span><b>Explanations Can Reduce Overreliance on AI Systems</b><span class="who">Vasconcelos et al., CSCW 2023</span><p>When explanations help people catch AI mistakes, and when they don't.</p></a></div></div>
+  </section>
+</main>
+
+<div class="wrap" style="border-top: 1px solid var(--line)">
+  <div class="pager"><a href="../a8/">Previous: A8 Guardrails, safety and observability</a><a href="../#floor">Next: A10 AI economics and pricing (opening soon)</a></div>
+</div>
+
+<footer class="wrap site">
+  <span>AI Gym by Dhaval Kareliya. Free, hands-on AI practice for product managers.</span>
+  <span class="links">
+    <a class="btn" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+    <a class="btn" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+    <a class="btn solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+  </span>
+</footer>
+
+<script src="../assets/progress.js"></script>
+<script src="../assets/station.js"></script>
+<script src="../assets/game-engine.js"></script>
+<script src="../assets/trust-tuner.js"></script>
+<script>TrustTuner(document.getElementById("gamebox"));</script>
+</body>
+</html>
