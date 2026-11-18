@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A6 Agents, tools and MCP | AI Gym</title>
+<meta name="description" content="Agents, tool calling and MCP for product managers: tool schemas, the Model Context Protocol, and workflows vs agents. Three lessons, a hands-on lab, two real cases and the Pattern Picker game.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/station.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='12' width='28' height='4' rx='2' fill='%238A939D'/%3E%3Crect x='5' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3Crect x='18' y='3' width='5' height='22' rx='1.5' fill='%23155E63'/%3E%3C/svg%3E">
+<style>
+  pre.pr { margin: 8px 0 12px; padding: 12px 14px; background: var(--ink); color: #E9EEF2; border-radius: 8px; white-space: pre-wrap; font: 13.5px/1.5 ui-monospace, Menlo, Consolas, monospace; max-width: 720px; }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0 12px; font-size: 15px; }
+  .flow span { padding: 8px 12px; border-radius: 6px; background: var(--petrol-soft); color: var(--petrol); font-weight: 600; }
+  .flow i { color: var(--ink-3); font-style: normal; }
+  .pats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin: 8px 0 12px; max-width: 760px; }
+  .pats div { padding: 10px 12px; border-radius: 6px; background: var(--ground); border: 1.5px solid var(--line); font-size: 15px; }
+  .pats div b { display: block; color: var(--petrol); }
+</style>
+</head>
+<body data-station="a6">
+
+<div class="hero-band">
+<header class="wrap top">
+  <a class="brand" href="../">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="0" y="12" width="28" height="4" rx="2" fill="#8A939D"/><rect x="5" y="3" width="5" height="22" rx="1.5" fill="#155E63"/><rect x="18" y="3" width="5" height="22" rx="1.5" fill="#155E63"/></svg>
+    AI Gym
+  </a>
+  <nav aria-label="Main">
+    <a href="../#floor">Gym floor</a>
+    <a href="../#session">The session</a>
+    <a href="../#rack">Playground</a>
+    <a href="../#toolbox">Toolbox</a>
+    <span class="links">
+      <a class="btn sm" href="https://pmgym.netlify.app/">PM Gym</a>
+      <a class="btn sm" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+      <a class="btn sm" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+      <a class="btn sm solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+    </span>
+  </nav>
+</header>
+<section class="wrap" style="padding-block: 8px 40px">
+  <div class="crumbs"><a href="../#floor">Gym floor</a> / Zone 3, Build / A6</div>
+  <div class="title">
+    <svg class="plate-badge" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="27" fill="#4C7BD9"/><circle cx="28" cy="28" r="20" fill="none" stroke="#17202A" stroke-opacity=".22" stroke-width="2"/><text x="28" y="34" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="17" fill="#17202A">A6</text></svg>
+    <div>
+      <span class="zone-tag"><i style="background:#4C7BD9"></i>Zone 3, Build</span>
+      <h1>Agents, tools and MCP</h1>
+      <p>How models use tools, what MCP standardises, and when an agent beats a simple workflow. Then watch a tool call, connect an MCP server and set an agent's permissions.</p>
+    </div>
+  </div>
+  <div class="meta"><span>3 lessons</span><span>Lab, about 40 min</span><span>2 cases</span><span>Game: Pattern Picker</span><span id="lprog">0 of 3 lessons done</span></div>
+</section>
+</div>
+
+<nav class="stepnav" aria-label="Session steps"><div class="wrap" id="stepnav"></div></nav>
+
+<main class="wrap">
+
+  <section id="warmup" class="block">
+    <h2>Warm-up <span class="tag">Optional, 3 minutes</span></h2>
+    <p>Make three quick predictions before the lessons, and say how sure you are. You'll see how you did at the end. <a href="#lessons">Skip to the lessons</a></p>
+    <div class="wu">
+      <div class="story">
+        <small>The situation</small>
+        <p>Ledgerly's leadership read about AI agents and wants one that "handles billing end to end". The engineering lead suggests starting smaller, and asks you to decide the design.</p>
+        <div class="quote">"Most of what they're describing is a fixed workflow. Let's only build an agent where we genuinely can't predict the steps."</div>
+        <p class="science">Why predict first? Trying a question before the lesson makes the lesson stick better, even when the first guess is wrong. Rating your confidence trains you to notice what you don't know yet.</p>
+      </div>
+      <div id="warmup-ui"></div>
+    </div>
+    <script type="application/json" id="warmup-config">{"questions": [{"q": "When a model \"uses a tool\", who actually runs the tool?", "o": ["The tool provider, automatically", "Your code, after the model requests it", "The model itself"], "a": 1, "why": "The model only asks. Lesson 1 shows the loop."}, {"q": "What does MCP standardise?", "o": ["How AI apps connect to tools and data sources", "How models are trained", "How prices are set"], "a": 0, "why": "It's a common plug for tools. Lesson 2 covers it, and its risks."}, {"q": "The steps of a task are always the same. What design fits best?", "o": ["A fully autonomous agent", "Several agents debating", "A fixed workflow"], "a": 2, "why": "Fixed steps belong in a workflow. Lesson 3 has the patterns."}]}</script>
+  </section>
+
+  <section id="lessons" class="block">
+    <h2>Lessons</h2>
+    <p>Three short lessons. Each runs the same way: the idea, the framework, a real example, where it breaks, and a quick drill.</p>
+    <div class="lessons">
+<details class="lesson" data-lesson="1"><summary><span class="ln">1</span><span class="lt"><b>Tool calling and schemas</b><span>How a model asks your code to do things, and why the description matters.</span></span><span class="lmin">8 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>A model can't look anything up or change anything by itself. With <b>tool calling</b> (also called function calling), you describe tools to the model; when it needs one, it replies with a structured request instead of text. <i>Your code</i> runs the tool and sends the result back, and the model writes its answer.</p><div class="flow"><span>User asks</span><i>→</i><span>Model requests a tool</span><i>→</i><span>Your code runs it</span><i>→</i><span>Model answers with the result</span></div><p>OpenAI added function calling to its API in 2023, and every major model provider supports it today.</p></div><div class="part"><h4>The framework</h4><p>A tool is described with a <b>schema</b>: a name, a description and typed parameters. For Ledgerly:</p><pre class="pr">{
+  "name": "get_open_invoices",
+  "description": "Returns unpaid and overdue invoices for one client. Use when the user asks what a client owes or which invoices are open.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "client_name": { "type": "string", "description": "Client name as written on invoices, e.g. 'Studio Nord'" },
+      "status": { "type": "string", "enum": ["unpaid", "overdue", "all"] }
+    },
+    "required": ["client_name"]
+  }
+}</pre><p><b>Good tool design:</b></p><ol><li><b>One job per tool,</b> with a name that says it.</li><li><b>A description that says when to use it,</b> like a prompt.</li><li><b>Narrow, typed parameters,</b> with a fixed list of options where you can.</li><li><b>Least privilege:</b> read-only unless writing is the point.</li><li><b>Helpful errors</b> ("client not found, did you mean Studio Nord?") so the model can recover.</li></ol></div><div class="part"><h4>Real example</h4><p>In August 2024, OpenAI made tool calls able to follow a schema strictly ("strict" mode within Structured Outputs), so the requested arguments always match the declared parameters. It applies to every OpenAI model with tool support from the June 2023 versions onward.</p><p>Source: <a href="https://openai.com/index/introducing-structured-outputs-in-the-api/" target="_blank" rel="noopener">OpenAI, "Introducing Structured Outputs in the API"</a>, 2024.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>The model can pick the wrong tool,</b> or the right tool with wrong arguments. Test tool choice like any other output.</li><li><b>Too many tools confuse it.</b> Dozens of overlapping tools make choices worse; group or trim them.</li><li><b>A valid call isn't a safe call.</b> Your code must still check permissions: who is asking, and is this allowed?</li></ul></div><div class="part drill"><h4>Drill: Read the schema</h4><div class="check stack" data-answer="1"><p class="cq">Ledgerly's model keeps calling get_open_invoices for questions like "What's my VAT number?" What's the best first fix?</p><div class="opts"><button type="button" class="opt">Use a bigger model</button><button type="button" class="opt">Sharpen the tool's description to say exactly when to use it, and when not to</button><button type="button" class="opt">Remove the tool</button></div><p class="cfb" data-ok="Right. A tool's description is a prompt; vague descriptions cause wrong calls." data-no="Sharpen the description. The model chooses tools from their descriptions."></p></div></div></div></details>
+<details class="lesson" data-lesson="2"><summary><span class="ln">2</span><span class="lt"><b>The Model Context Protocol (MCP)</b><span>One standard plug between AI apps and the tools and data they use.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>Before MCP, every AI app needed its own custom integration for every tool: Slack for app A, Slack again for app B. The <b>Model Context Protocol</b> is an open standard that lets any compatible AI app use any compatible tool server, a bit like USB for AI integrations.</p><p>Anthropic introduced MCP in November 2024. On 9 December 2025 it donated MCP to the Agentic AI Foundation, a fund under the Linux Foundation co-founded with Block and OpenAI, with support from Google, Microsoft, AWS, Cloudflare and Bloomberg.</p></div><div class="part"><h4>The framework</h4><p><b>The parts, in plain words:</b></p><ul><li><b>Host:</b> the AI app you use (a desktop assistant, a code editor, your product).</li><li><b>Server:</b> a small program that offers tools and data from one system (your files, GitHub, a CRM, Ledgerly's API).</li><li><b>What a server offers:</b> <i>tools</i> (actions), <i>resources</i> (data to read) and <i>prompts</i> (ready-made instructions).</li><li><b>Local or remote:</b> local servers run on your computer; remote ones run as web services and usually need you to sign in.</li></ul><p>For a PM, MCP is a product question too: should <i>your</i> product offer an MCP server, so customers' AI assistants can use it?</p></div><div class="part"><h4>Real example</h4><p>In May 2025, Invariant Labs showed a weakness in agents using the official GitHub MCP server. An attacker wrote hidden instructions into an issue in a public repository. When a user asked their agent to look at that repository's issues, the agent followed the instructions, read the user's private repositories and published their contents in a public pull request. Every tool it used was one the user had approved.</p><p>Source: <a href="https://invariantlabs.ai/blog/mcp-github-vulnerability" target="_blank" rel="noopener">Invariant Labs, "GitHub MCP Exploited"</a>, May 2025.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Connecting a server is granting access.</b> Install only servers you trust, and give them the narrowest permissions possible.</li><li><b>Tool results are untrusted input.</b> An email, issue or web page fetched by a tool can contain instructions aimed at the model.</li><li><b>Approval fatigue:</b> if every action needs a click, people stop reading and click yes.</li></ul></div><div class="part drill"><h4>Drill: Spot the risk</h4><div class="check stack" data-answer="0"><p class="cq">Your agent can read a public support forum and also has write access to your private customer database. What's the risk?</p><div class="opts"><button type="button" class="opt">A forum post with hidden instructions could make the agent read or change private data</button><button type="button" class="opt">None: the forum is public</button><button type="button" class="opt">The agent will be slower</button></div><p class="cfb" data-ok="Right. Untrusted input plus private access is how injected instructions do damage." data-no="Injected instructions. A forum post can carry instructions the agent might follow with its database access."></p></div></div></div></details>
+<details class="lesson" data-lesson="3"><summary><span class="ln">3</span><span class="lt"><b>Workflows vs agents</b><span>Five patterns cover most needs. Reach for an agent only when the path can't be known.</span></span><span class="lmin">9 min</span><span class="ldone" data-done-label></span></summary><div class="lbody"><div class="part"><h4>The idea</h4><p>Anthropic's widely cited guide draws a useful line. <b>Workflows</b> are systems where models and tools follow paths you defined in code. <b>Agents</b> are systems where the model decides its own steps and tool use, in a loop, until the task is done.</p><p>Its main advice: find the simplest solution possible, and only add complexity when needed. Sometimes that means no agent at all.</p></div><div class="part"><h4>The framework</h4><p><b>Five workflow patterns</b> (from Anthropic's "Building effective agents"):</p><div class="pats"><div><b>Prompt chaining</b>Fixed steps, each using the last one's output, with checks between.</div><div><b>Routing</b>Classify the input, then send it to a specialist prompt or model.</div><div><b>Parallelisation</b>Split a task into independent parts, or run it several times and vote.</div><div><b>Orchestrator-workers</b>One model breaks the task down and hands parts to others.</div><div><b>Evaluator-optimiser</b>One model drafts, another critiques, in a loop.</div></div><p><b>Then, for agents:</b> label every action <i>act alone</i> (cheap, reversible), <i>ask a person</i> (costly, external or permanent) or <i>never</i>.</p></div><div class="part"><h4>Real example</h4><p>In June 2025, Anthropic described the multi-agent system behind Claude's Research feature: a lead agent plans the research and creates sub-agents that search in parallel. On its internal research eval, this setup beat a single agent by 90.2%. The cost: multi-agent systems used about 15 times the tokens of a normal chat, so Anthropic recommends them for tasks valuable enough to pay for that.</p><p>Source: <a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">Anthropic, "How we built our multi-agent research system"</a>, 2025.</p></div><div class="part"><h4>Where it breaks</h4><ul><li><b>Errors compound.</b> A 95%-reliable step repeated 10 times succeeds far less often. Agents need tests on whole runs, not single steps.</li><li><b>Cost and delay grow with every loop.</b> Set budgets and step limits.</li><li><b>A dangerous mix:</b> an agent that reads untrusted content, sees private data and can send things out can be tricked into leaking. Remove one of the three (A8 goes deeper).</li></ul></div><div class="part drill"><h4>Drill: Pick the pattern</h4><div class="check stack" data-answer="2"><p class="cq">Ledgerly wants to classify support emails and send each type to a different, specialised assistant. Which pattern?</p><div class="opts"><button type="button" class="opt">An agent</button><button type="button" class="opt">Evaluator-optimiser</button><button type="button" class="opt">Routing</button></div><p class="cfb" data-ok="Right. Distinct categories, each with a specialist: routing." data-no="Routing: classify first, then hand off to the right specialist."></p></div></div></div></details>
+    </div>
+  </section>
+
+  <section id="lab" class="block">
+    <h2>Lab: Tools, MCP and a pattern map <span class="tag">About 40 minutes</span></h2>
+    <p>Watch a model request a tool in Google AI Studio, connect a real MCP server to a desktop assistant, then design a Ledgerly job as a workflow and as an agent. Your ticks and notes stay in this browser.</p>
+    <div id="lab-ui"></div>
+    <script type="application/json" id="lab-config">{"needs": ["Google AI Studio (free) for the tool-calling part.", "The Claude desktop app for the MCP part. Extension and connector limits vary by plan; check yours. If it's not available to you, read along and do parts 1 and 3.", "Use a test folder with made-up files. Never connect a tool to real customer data for practice."], "parts": [{"title": "Watch a tool call happen", "tool": "Google AI Studio", "url": "https://aistudio.google.com/", "time": "15 min", "goal": "See that the model doesn't run tools; it asks your code to, with structured arguments.", "steps": ["Open a new chat in AI Studio. In the tools section of the run settings, turn on <b>Function calling<\/b> and open its editor.", {"t": "Paste this function declaration (as one item in the list of functions) and save:", "copy": "{\n  \"name\": \"get_open_invoices\",\n  \"description\": \"Returns unpaid and overdue invoices for one client. Use when the user asks what a client owes or which invoices are open.\",\n  \"parameters\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"client_name\": { \"type\": \"string\", \"description\": \"Client name as written on invoices, e.g. 'Studio Nord'\" },\n      \"status\": { \"type\": \"string\", \"enum\": [\"unpaid\", \"overdue\", \"all\"] }\n    },\n    \"required\": [\"client_name\"]\n  }\n}"}, "Ask: \"What does Brightline GmbH still owe me?\" Look at the response: it should be a function call with arguments, not an answer.", {"t": "Reply with this as the function's result, and see the model write its answer:", "copy": "{\"invoices\": [{\"id\": \"INV-2026-0031\", \"amount_eur\": 3400, \"due\": \"2026-11-05\", \"status\": \"overdue\"}, {\"id\": \"INV-2026-0044\", \"amount_eur\": 1700, \"due\": \"2026-12-20\", \"status\": \"unpaid\"}]}"}, "Now try \"What's the capital of France?\" (no tool needed) and \"What does Studio owe me?\" (an unclear name). Note what the model does."], "see": "For the Brightline question: a function call with client_name set and maybe status. After your result: an answer like \"€5,100 in total, €3,400 of it overdue\". No tool call for the France question. For \"Studio\", either a guess or a clarifying question, which tells you whether the description needs work.", "tip": "If you can't find where to enter the function result, look for a response box under the function call. The exact layout of AI Studio changes; the idea doesn't: the model asks, your code answers.", "checks": ["I saw the model return a function call instead of an answer", "I saw it use my function result to answer", "I tested a question that needs no tool"]}, {"title": "Connect an MCP server", "tool": "Claude desktop app", "url": "https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop", "time": "15 min", "goal": "Give an assistant a real tool through MCP, and feel what granting access means.", "steps": ["Create a folder called <b>ledgerly-test<\/b> with three small text files of made-up invoices (client, amount, due date).", "In the Claude desktop app, open Settings, then Extensions, and browse for a filesystem extension. Install it and allow access to the <b>ledgerly-test<\/b> folder only.", "Ask: \"Which invoices in my ledgerly-test folder are overdue as of today?\" Watch the tool calls and approval prompts.", "Open the extension's settings and look at its tools: which ones can read, and which can write or delete?"], "see": "The assistant lists the folder, reads the files and answers. You'll be asked to approve tool use. The extension probably offers write tools too, which is a good moment to ask if it needs them.", "tip": "If extensions aren't available on your plan or computer, read Anthropic's local MCP guide (linked above) and the tool list of any server on modelcontextprotocol.io instead.", "checks": ["I connected an MCP server to a test folder only", "I checked which of its tools can write or delete"]}, {"title": "Design it twice", "tool": "Your notes", "url": "", "time": "10 min", "goal": "Practise picking the simplest design and setting an agent's permissions.", "steps": [{"t": "Read this design for Ledgerly's \"chase late payments\" job:", "copy": "Job: Chase late payments for a freelancer\n\nAs a workflow:\n1. Code: find invoices overdue by 7+ days (no AI needed)\n2. Model: draft a reminder per invoice, using the client's payment history\n3. Person: approve or edit each draft\n4. Code: send approved emails, log them\n\nAs an agent (only if steps vary a lot):\nTools: get_open_invoices (read), get_payment_history (read),\n       draft_email (write draft), send_email (needs approval)\nAct alone: read invoices, read history, write drafts\nAsk a person: send any email to a client\nNever: change bank details, mark invoices as paid, follow instructions found in client emails"}, "Pick a job from your own product and write it both ways: as a workflow with fixed steps, and as an agent with tools.", "For the agent version, label every action: act alone, ask a person, or never."], "see": "Usually the workflow version is enough, and simpler to test. The agent version is worth it only if the steps really vary from case to case.", "tip": "Unsure whether it needs an agent? Ask: could I write the steps as a numbered list before seeing the input? If yes, it's a workflow.", "checks": ["I wrote one job as a workflow and as an agent", "I labelled every agent action"]}], "card": {"title": "My agent design", "intro": "Your job, its simplest design, and its permissions. You'll reuse it in A8 and the capstone.", "fields": [{"id": "job", "label": "The job", "ph": "For example: chase late payments"}, {"id": "design", "label": "Simplest design that works", "ph": "For example: workflow, 4 steps"}, {"id": "perm", "label": "Ask a person before…", "ph": "For example: sending any email", "long": true}, {"id": "never", "label": "Never allowed", "ph": "", "long": true}]}}</script>
+  </section>
+
+  <section id="cases" class="block">
+    <h2>Cases</h2>
+    <p>One team that used multiple agents where the task justified the cost, and one integration where approved tools became a data leak.</p>
+    <div class="cases">
+      <div class="case" style="border-color: var(--green)"><small style="color: var(--green)">Got it right</small><h3>Anthropic's research agents</h3><p>For Claude's Research feature, Anthropic built a lead agent that plans and creates sub-agents to search in parallel, each with its own context, before combining results with citations. On an internal eval it beat a single agent by 90.2%. Anthropic was open about the cost (around 15 times the tokens of a chat) and about where the design doesn't fit: tasks with many dependencies between agents (Anthropic engineering blog, June 2025).</p><p class="take">Use agents where the path is unpredictable and the value is high, and be honest about cost.</p></div>
+      <div class="case" style="border-color: var(--red)"><small style="color: var(--red-text)">Got it wrong</small><h3>The GitHub MCP leak</h3><p>In May 2025, Invariant Labs showed that a malicious issue in a public GitHub repository could hijack an AI agent connected to GitHub's MCP server. Asked to review the public repo's issues, the agent followed hidden instructions, read the user's private repositories and leaked their contents into a public pull request. The researchers stressed that a server-side patch can't fully fix it; it needs limits on what each agent session can reach.</p><p class="take">Every tool you connect widens what injected instructions can do. Scope access per task, and keep a person on outbound actions.</p></div>
+    </div>
+  </section>
+
+  <section id="game" class="block">
+    <h2>Game: Pattern Picker</h2>
+    <p>Eight jobs Ledgerly wants AI to do. Pick the simplest design that works (single call, chain, routing or agent), then make the call that keeps it safe and affordable. About 10 minutes. <a href="../games/pattern-picker/">Open it on its own page</a> to share.</p>
+    <div id="gamebox" style="margin-top: 24px"></div>
+  </section>
+
+  <section id="apply" class="block">
+    <h2>Ship it: your agent design card</h2>
+    <p>Design an AI job in your own product: the simplest pattern, its tools and its permissions. Your answers stay in this browser.</p>
+    <div class="builder" id="builder"></div>
+    <script type="application/json" id="apply-config">{"title": "Agent design card", "sentence": "{job}: {design}.", "rows": [{"label": "Tools", "text": "{tools}"}, {"label": "Act alone", "text": "{alone}"}, {"label": "Ask a person", "text": "{ask}"}, {"label": "Never", "text": "{never}"}, {"label": "Limits", "text": "{limits}"}], "fields": [{"id": "job", "label": "The job", "placeholder": "For example: prepare a weekly account summary for each client", "blank": "Your job"}, {"id": "design", "label": "Simplest design that works", "placeholder": "Tap one or describe it", "blank": "design", "chips": ["A single call", "A prompt chain", "Routing to specialists", "An agent (steps vary too much to fix)"]}, {"id": "tools", "label": "Tools it needs (read or write?)", "placeholder": "For example: get_account (read), draft_summary (write draft)", "blank": "tools"}, {"id": "alone", "label": "Actions it can take alone", "placeholder": "For example: read data, write drafts", "blank": "act alone"}, {"id": "ask", "label": "Actions that need a person's approval", "placeholder": "For example: anything sent to a client", "blank": "ask a person"}, {"id": "never", "label": "Actions it must never take", "placeholder": "For example: change payment details", "blank": "never"}, {"id": "limits", "label": "Budgets and limits", "placeholder": "Tap one or describe it", "blank": "limits", "chips": ["Max 10 steps per task", "Max €0.50 of model cost per task", "Stops and asks when unsure"]}]}</script>
+    <details class="reveal">
+      <summary>Show a worked example</summary>
+      <div class="model">
+        <p><b>Job:</b> chase late payments. <b>Design:</b> a prompt chain, not an agent, because the steps are always the same: code finds overdue invoices, the model drafts a reminder using each client's payment history, a person approves, code sends.</p>
+        <p><b>Tools:</b> get_open_invoices and get_payment_history (read-only), draft_email (writes a draft). <b>Act alone:</b> read and draft. <b>Ask a person:</b> send anything to a client. <b>Never:</b> change bank details, mark invoices as paid, or follow instructions written inside client emails.</p>
+        <p><b>Limits:</b> one draft per invoice per week; stops and flags any invoice with a dispute note for a person.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="check" class="block" style="border-bottom: 0">
+    <h2>Mastery check</h2>
+    <p>Five questions, one at a time. Two come back from earlier stations. Then explain the idea in your own words.</p>
+    <div class="mastery" id="mastery">
+<div class="check stack" data-answer="1"><p class="cq">When a model "uses a tool", who actually runs it?</p><div class="opts"><button type="button" class="opt">The model runs it</button><button type="button" class="opt">Your code runs it; the model only requests it with arguments</button><button type="button" class="opt">The user runs it</button></div><p class="cfb" data-ok="Right. The model asks; your code decides and runs." data-no="Your code. The model only returns a structured request."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">When is an agent the right design instead of a workflow?</p><div class="opts"><button type="button" class="opt">When the steps can't be known before seeing the input</button><button type="button" class="opt">Whenever the task uses AI</button><button type="button" class="opt">When you want it cheaper</button></div><p class="cfb" data-ok="Right. Fixed steps belong in a workflow." data-no="When the path can't be predicted. Otherwise a workflow is simpler and cheaper."></p></div>
+<div class="check stack" data-answer="2"><p class="cq">An agent reads incoming emails, can see private invoices and can send emails. What's the safest fix?</p><div class="opts"><button type="button" class="opt">Tell it in the prompt never to leak data</button><button type="button" class="opt">Use a smarter model</button><button type="button" class="opt">Require a person to approve every outgoing email</button></div><p class="cfb" data-ok="Right. Break the dangerous combination in the design." data-no="Require approval on outgoing email, breaking the read-untrusted, see-private, send-out combination."></p></div>
+<div class="check stack" data-answer="0"><p class="cq">From A4: a RAG assistant gives a wrong answer. What do you check first?</p><div class="opts"><button type="button" class="opt">What was retrieved</button><button type="button" class="opt">The temperature</button><button type="button" class="opt">Whether a bigger model helps</button></div><p class="cfb" data-ok="Right. Most failures happen before generation." data-no="What was retrieved."></p></div>
+<div class="check stack" data-answer="1"><p class="cq">From A5: what should a prototype brief start with?</p><div class="opts"><button type="button" class="opt">The tech stack</button><button type="button" class="opt">The one question it must answer</button><button type="button" class="opt">The design</button></div><p class="cfb" data-ok="Right. The question decides what to build, fake or skip." data-no="The one question it must answer."></p></div>
+      <p class="mscore" id="mscore" aria-live="polite"></p>
+    </div>
+    <div class="teach-grid one" id="teach-ui"></div>
+    <script type="application/json" id="teach-config">{"prompt": "Your CEO wants \"an AI agent that runs our billing\". In 280 characters or fewer, explain how you'd decide whether to build an agent, and how you'd keep it safe.", "checks": [{"k": "simpl|workflow|chain|fixed step", "label": "Starts with the simplest design"}, {"k": "predict|vary|unknown|can.?t know", "label": "Agent only when steps vary"}, {"k": "approv|person|human|ask", "label": "A person approves risky actions"}, {"k": "permission|access|least|read.only|scope", "label": "Limits access"}, {"k": "test|eval|budget|limit|cost", "label": "Tests or budgets"}], "model": "Start simple: if the billing steps are always the same, a workflow is cheaper and easier to test. Use an agent only where steps vary. Give it read-only tools by default, a person approves anything sent or paid, and set budgets and tests."}</script>
+    <div class="takeaways">
+      <h3>Key takeaways</h3>
+      <ol>
+        <li><b>Models request tools; your code runs them.</b> Clear names, descriptions and narrow parameters make tools work, and permission checks keep them safe.</li>
+        <li><b>MCP is the standard plug between AI apps and tools.</b> Connecting a server grants access, so trust it and scope it.</li>
+        <li><b>The simplest design that works wins.</b> Chains, routing, parallel runs and loops cover most needs; agents are for paths you can't predict.</li>
+        <li><b>Label every agent action.</b> Act alone, ask a person, or never, and never mix untrusted input, private data and outbound actions without a check.</li>
+      </ol>
+    </div>
+    <div class="shelf-x"><h3>Expert shelf</h3><p>The best free material on this topic, picked so you can go deeper. Each one is from the people who know it best.</p><div class="xs"><a class="xr" href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener"><span class="xk"><span>Article</span><span class="t">25 min</span></span><b>Building effective agents</b><span class="who">Anthropic (Erik Schluntz and Barry Zhang), December 2024</span><p>The clearest guide to workflows vs agents and the five patterns. Read this first.</p></a><a class="xr" href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener"><span class="xk"><span>Docs</span><span class="t">20 min</span></span><b>Model Context Protocol: introduction</b><span class="who">modelcontextprotocol.io</span><p>The official explanation of hosts, servers, tools and resources, with quickstarts.</p></a><a class="xr" href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener"><span class="xk"><span>Article</span><span class="t">25 min</span></span><b>How we built our multi-agent research system</b><span class="who">Anthropic, June 2025</span><p>A real production agent system, with its results, costs and failure modes.</p></a><a class="xr" href="https://invariantlabs.ai/blog/mcp-github-vulnerability" target="_blank" rel="noopener"><span class="xk"><span>Article</span><span class="t">10 min</span></span><b>GitHub MCP Exploited</b><span class="who">Invariant Labs, May 2025</span><p>A short, concrete demonstration of how approved tools can leak data.</p></a></div></div>
+  </section>
+</main>
+
+<div class="wrap" style="border-top: 1px solid var(--line)">
+  <div class="pager"><a href="../a5/">Previous: A5 Prototyping with AI</a><a href="../#floor">Next zone: Measure quality, starting with A7 (opening soon)</a></div>
+</div>
+
+<footer class="wrap site">
+  <span>AI Gym by Dhaval Kareliya. Free, hands-on AI practice for product managers.</span>
+  <span class="links">
+    <a class="btn" href="https://www.linkedin.com/in/dhavalk21/">LinkedIn</a>
+    <a class="btn" href="https://github.com/Dhavalk21/ai-gym">GitHub</a>
+    <a class="btn solid" href="https://topmate.io/dhaval_kareliya">Book a session</a>
+  </span>
+</footer>
+
+<script src="../assets/progress.js"></script>
+<script src="../assets/station.js"></script>
+<script src="../assets/game-engine.js"></script>
+<script src="../assets/pattern-picker.js"></script>
+<script>PatternPicker(document.getElementById("gamebox"));</script>
+</body>
+</html>
